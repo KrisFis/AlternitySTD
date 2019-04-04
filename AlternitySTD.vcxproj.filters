@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{33567a84-5946-4836-a3ff-df320bb31eb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Public">
+      <UniqueIdentifier>{cbfd1ab9-c307-4e31-bd7d-fd495e3cb242}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Private">
+      <UniqueIdentifier>{cdb95e68-d373-40f9-8555-b6b4756e6cef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Private\Collections">
+      <UniqueIdentifier>{ab6b0204-c507-4238-b9ad-a09b71ca3b67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Public\Collections">
+      <UniqueIdentifier>{30cfb15f-15e3-47ab-86e8-35899a879999}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Public\Components">
+      <UniqueIdentifier>{1a643180-2b8e-40e4-848c-e0e28661cb57}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Private\main.cpp">
+      <Filter>Source\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Private\Collections\List.cpp">
+      <Filter>Source\Private\Collections</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Public\Collections\List.h">
+      <Filter>Source\Public\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Public\Components\IntTypes.h">
+      <Filter>Source\Public\Components</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
