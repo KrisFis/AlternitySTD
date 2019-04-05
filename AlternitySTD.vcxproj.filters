@@ -16,24 +16,39 @@
     <Filter Include="Source\Public\Collections">
       <UniqueIdentifier>{30cfb15f-15e3-47ab-86e8-35899a879999}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Public\Components">
+    <Filter Include="Source\Public\Essentials">
       <UniqueIdentifier>{1a643180-2b8e-40e4-848c-e0e28661cb57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Private\Essentials">
+      <UniqueIdentifier>{baea4f6a-31ca-4dd9-b4ce-3cdfd523368b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Private\main.cpp">
+    <ClCompile Include="Source\List.cpp">
+      <Filter>Source\Private\Collections</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\main.cpp">
       <Filter>Source\Private</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Private\Collections\List.cpp">
-      <Filter>Source\Private\Collections</Filter>
+    <ClCompile Include="Source\EnsuresAssertion.cpp">
+      <Filter>Source\Private\Essentials</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Public\Collections\List.h">
+    <ClInclude Include="Source\IntTypes.h">
+      <Filter>Source\Public\Essentials</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\List.h">
       <Filter>Source\Public\Collections</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Public\Components\IntTypes.h">
-      <Filter>Source\Public\Components</Filter>
+    <ClInclude Include="Source\CoreEssentials.h">
+      <Filter>Source\Public\Essentials</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EnsureMacros.h">
+      <Filter>Source\Public\Essentials</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EnsuresAssertion.h">
+      <Filter>Source\Public\Essentials</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
