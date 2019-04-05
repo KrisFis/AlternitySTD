@@ -30,9 +30,6 @@
     <ClCompile Include="Source\main.cpp">
       <Filter>Source\Private</Filter>
     </ClCompile>
-    <ClCompile Include="Source\EnsuresAssertion.cpp">
-      <Filter>Source\Private\Essentials</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\IntTypes.h">
@@ -44,10 +41,13 @@
     <ClInclude Include="Source\CoreEssentials.h">
       <Filter>Source\Public\Essentials</Filter>
     </ClInclude>
+    <ClInclude Include="Source\EnsuresAssertion.h">
+      <Filter>Source\Public\Essentials</Filter>
+    </ClInclude>
     <ClInclude Include="Source\EnsureMacros.h">
       <Filter>Source\Public\Essentials</Filter>
     </ClInclude>
-    <ClInclude Include="Source\EnsuresAssertion.h">
+    <ClInclude Include="Source\BaseMacros.h">
       <Filter>Source\Public\Essentials</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,11 +2,19 @@
 #pragma once
 
 #include "EnsuresAssertion.h"
-#include "IntTypes.h"
 
-// Ensures validity with result return (for condition)
-#define ensure(expression) !EnsureAssert(expression)
+#ifdef _DEBUG
+	
+	// Ensure inside if statement
+	#define ENSURE_CONDITION(expression) !expression) throw; if(!expression
 
-// Ensures validity with return
-#define ENSURE_TRUE(expression, ...) {if(!expression) return __VA_ARGS__;  }
-#define ENSURE_VALID(ptr, ...) {if(!EnsureAssert(ptr != nullptr && ptr != NULL)) return __VA_ARGS__;}
+	// Ensures validity with return
+	#define ENSURE_TRUE(expression, ...) if(!expression) { throw; return __VA_ARGS__;}
+	#define ENSURE_VALID(ptr, ...) if(!IsValid(ptr)) {throw; return __VA_ARGS__;}
+#else
+	#define ENSURE_CONDITION(expression)
+
+	// Ensures takes no effect when not in debug mode
+	#define ENSURE_TRUE(expression, ...)
+	#define ENSURE_VALID(ptr, ...)
+#endif

@@ -27,20 +27,14 @@ struct List
 	// @parameter1 - New element which is not already included in list
 	void Add(const ListType& InNewValue)
 	{
-		if (ensure(Size + 1 <= MaxCapacity))
-		{
-
-		}
+		ENSURE_TRUE(Size + 1 <= MaxCapacity);
 	}
 
 	// Adds new element of ListType by rvalue if possible
 	// @parameter1 - New element which is not already included in list
 	void Add(ListType&& InNewValue)
 	{
-		if (ensure(Size + 1 <= MaxCapacity))
-		{
-
-		}
+		ENSURE_TRUE(Size + 1 <= MaxCapacity);
 	}
 
 private: // fields

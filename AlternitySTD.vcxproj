@@ -128,7 +128,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\EnsuresAssertion.cpp" />
     <ClCompile Include="Source\List.cpp" />
     <ClCompile Include="Source\main.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">DEBUG%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -136,9 +135,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\EnsuresAssertion.h" />
     <ClInclude Include="Source\CoreEssentials.h" />
     <ClInclude Include="Source\EnsureMacros.h" />
-    <ClInclude Include="Source\EnsuresAssertion.h" />
+    <ClInclude Include="Source\BaseMacros.h" />
     <ClInclude Include="Source\IntTypes.h" />
     <ClInclude Include="Source\List.h" />
   </ItemGroup>
