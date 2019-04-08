@@ -11,6 +11,7 @@
 	// Ensures validity with return
 	#define ENSURE_TRUE(expression, ...) if(!expression) { throw; return __VA_ARGS__;}
 	#define ENSURE_VALID(ptr, ...) if(!IsValid(ptr)) {throw; return __VA_ARGS__;}
+	#define ENSURE_NO_ENTRY(...) {throw; return __VA_ARGS__;}
 #else
 	#define ENSURE_CONDITION(expression)
 

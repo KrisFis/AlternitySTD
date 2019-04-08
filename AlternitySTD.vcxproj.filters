@@ -22,6 +22,12 @@
     <Filter Include="Source\Private\Essentials">
       <UniqueIdentifier>{baea4f6a-31ca-4dd9-b4ce-3cdfd523368b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Public\Types">
+      <UniqueIdentifier>{29e272ca-8e54-4f91-a43d-7851acaccfe5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Private\Types">
+      <UniqueIdentifier>{4b0b360c-e9ea-4507-bdab-06c59d1afb59}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\List.cpp">
@@ -30,11 +36,11 @@
     <ClCompile Include="Source\main.cpp">
       <Filter>Source\Private</Filter>
     </ClCompile>
+    <ClCompile Include="Source\String.cpp">
+      <Filter>Source\Private\Types</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\IntTypes.h">
-      <Filter>Source\Public\Essentials</Filter>
-    </ClInclude>
     <ClInclude Include="Source\List.h">
       <Filter>Source\Public\Collections</Filter>
     </ClInclude>
@@ -49,6 +55,15 @@
     </ClInclude>
     <ClInclude Include="Source\BaseMacros.h">
       <Filter>Source\Public\Essentials</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\IntTypes.h">
+      <Filter>Source\Public\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\String.h">
+      <Filter>Source\Public\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CharTypes.h">
+      <Filter>Source\Public\Types</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
