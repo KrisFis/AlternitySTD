@@ -1,7 +1,6 @@
 #pragma once
 
-#include "IntTypes.h"
-#include "BaseMacros.h"
+#include "CoreEssentials.h"
 
 // struct representing array of chars
 struct FString
@@ -36,7 +35,6 @@ public: // Getters
 	FORCEINLINE bool IsEmpty() const { return (Lenght == 0); }
 	FORCEINLINE uint16 GetLenght() const { return Lenght; }
 	FORCEINLINE bool IsValidIndex(const uint32& InIndex) const { return (InIndex < Lenght); }
-	FORCEINLINE const char* GetRawText() const { return TextData; }
 
 public: // Static fields
 

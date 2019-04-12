@@ -29,14 +29,14 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -86,6 +86,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>CoreEssentials.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>NotSet</SubSystem>
@@ -108,6 +109,8 @@
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>_RELEASE, _MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>CoreEssentials.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -129,7 +132,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\List.cpp" />
     <ClCompile Include="Source\main.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">DEBUG%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RELEASE,_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -137,13 +139,16 @@
     <ClCompile Include="Source\String.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\CharTypes.h" />
+    <ClInclude Include="Source\AllocatorInterface.h" />
+    <ClInclude Include="Source\FixedAllocator.h" />
+    <ClInclude Include="Source\Iterator.h" />
+    <ClInclude Include="Source\List.h" />
+    <ClInclude Include="Source\SafeChar.h" />
     <ClInclude Include="Source\EnsuresAssertion.h" />
     <ClInclude Include="Source\CoreEssentials.h" />
     <ClInclude Include="Source\EnsureMacros.h" />
     <ClInclude Include="Source\BaseMacros.h" />
-    <ClInclude Include="Source\IntTypes.h" />
-    <ClInclude Include="Source\List.h" />
+    <ClInclude Include="Source\SafeInt.h" />
     <ClInclude Include="Source\String.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

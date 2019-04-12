@@ -2,6 +2,7 @@
 
 #include "CoreEssentials.h"
 #include "String.h"
+#include "FixedAllocator.h"
 
 #define print(text) std::cout << text << std::endl
 #define read(var) std::cin >> var
@@ -9,7 +10,7 @@
 
 int main(void)
 {
-	FString first("Hello World");
+	/*FString first("Hello World");
 
 	print(first.GetRawText());
 	print(first.GetLenght());
@@ -39,7 +40,7 @@ int main(void)
 		{
 			print("VOLE_JO!!");
 		}
-	}
+	}*/
 
 	wait();
 

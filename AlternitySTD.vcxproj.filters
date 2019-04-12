@@ -10,17 +10,8 @@
     <Filter Include="Source\Private">
       <UniqueIdentifier>{cdb95e68-d373-40f9-8555-b6b4756e6cef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Private\Collections">
-      <UniqueIdentifier>{ab6b0204-c507-4238-b9ad-a09b71ca3b67}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Public\Collections">
-      <UniqueIdentifier>{30cfb15f-15e3-47ab-86e8-35899a879999}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Public\Essentials">
       <UniqueIdentifier>{1a643180-2b8e-40e4-848c-e0e28661cb57}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Private\Essentials">
-      <UniqueIdentifier>{baea4f6a-31ca-4dd9-b4ce-3cdfd523368b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\Public\Types">
       <UniqueIdentifier>{29e272ca-8e54-4f91-a43d-7851acaccfe5}</UniqueIdentifier>
@@ -28,22 +19,34 @@
     <Filter Include="Source\Private\Types">
       <UniqueIdentifier>{4b0b360c-e9ea-4507-bdab-06c59d1afb59}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Public\Essentials\Safe Conversions">
+      <UniqueIdentifier>{cd11e5f5-2397-4cf8-aa7f-e866dba0b725}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Private\Types\String">
+      <UniqueIdentifier>{ce1da145-8da8-4ada-b705-d0c348e8c0a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Public\Types\String">
+      <UniqueIdentifier>{d8220869-fba0-4a79-80c7-19514b142920}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Public\Collections">
+      <UniqueIdentifier>{86985f49-7b72-4a66-9320-9d1e25983974}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Public\Allocators">
+      <UniqueIdentifier>{8ad89f14-f617-4efa-9b8d-e708e1abfe3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Public\Collections\Iterators">
+      <UniqueIdentifier>{f681ecb8-7205-4b39-bd1c-27b67e6196e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\List.cpp">
-      <Filter>Source\Private\Collections</Filter>
-    </ClCompile>
     <ClCompile Include="Source\main.cpp">
       <Filter>Source\Private</Filter>
     </ClCompile>
     <ClCompile Include="Source\String.cpp">
-      <Filter>Source\Private\Types</Filter>
+      <Filter>Source\Private\Types\String</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\List.h">
-      <Filter>Source\Public\Collections</Filter>
-    </ClInclude>
     <ClInclude Include="Source\CoreEssentials.h">
       <Filter>Source\Public\Essentials</Filter>
     </ClInclude>
@@ -56,14 +59,26 @@
     <ClInclude Include="Source\BaseMacros.h">
       <Filter>Source\Public\Essentials</Filter>
     </ClInclude>
-    <ClInclude Include="Source\IntTypes.h">
-      <Filter>Source\Public\Types</Filter>
+    <ClInclude Include="Source\SafeChar.h">
+      <Filter>Source\Public\Essentials\Safe Conversions</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SafeInt.h">
+      <Filter>Source\Public\Essentials\Safe Conversions</Filter>
     </ClInclude>
     <ClInclude Include="Source\String.h">
-      <Filter>Source\Public\Types</Filter>
+      <Filter>Source\Public\Types\String</Filter>
     </ClInclude>
-    <ClInclude Include="Source\CharTypes.h">
-      <Filter>Source\Public\Types</Filter>
+    <ClInclude Include="Source\FixedAllocator.h">
+      <Filter>Source\Public\Allocators</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Iterator.h">
+      <Filter>Source\Public\Collections\Iterators</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\List.h">
+      <Filter>Source\Public\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\AllocatorInterface.h">
+      <Filter>Source\Public\Allocators</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

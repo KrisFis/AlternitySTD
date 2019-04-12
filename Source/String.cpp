@@ -1,13 +1,16 @@
 
 #include "String.h"
-#include "EnsuresAssertion.h"
-#include "CharTypes.h"
+#include "CoreEssentials.h"
 
 const FString FString::Empty = FString();
 
 FString::FString() : 
 	TextData(nullptr), Lenght(INDEX_NONE)
 {
+	if (true)
+	{
+
+	}
 }
 
 FString::FString(const char* InText) : 
@@ -20,14 +23,14 @@ FString::FString(const char* InText) :
 	{
 		_lenght++;
 
-	} while (InText[_lenght] != EOF);
+	} while (InText[_lenght] != INDEX_EOF);
 
 	Lenght = _lenght;
 
 	if (_lenght <= 0) return;
 
 	TextData = new char[_lenght+1];
-	TextData[_lenght] = EOF;
+	TextData[_lenght] = INDEX_EOF;
 
 	// Assign new text
 	for (int i = 0; i < _lenght; i++)
@@ -48,7 +51,7 @@ FString::FString(const FString& other) :
 	Lenght(other.Lenght)
 {
 	TextData = new char[Lenght + 1];
-	TextData[Lenght] = EOF;
+	TextData[Lenght] = INDEX_EOF;
 
 	// Assign new text
 	for (int i = 0; i < other.Lenght; i++)
@@ -83,7 +86,7 @@ FString FString::operator+(const FString& other)
 	
 	char*& textRef = result.TextData;
 	textRef = new char[resultLenght+1];
-	textRef[resultLenght] = EOF;
+	textRef[resultLenght] = INDEX_EOF;
 
 	result.Lenght = resultLenght;
 
@@ -105,7 +108,7 @@ FString& FString::operator+=(const FString& other)
 	uint16 resultLenght = Lenght + other.Lenght;
 
 	char* newArray = new char[resultLenght+1];
-	newArray[resultLenght] = EOF;
+	newArray[resultLenght] = INDEX_EOF;
 
 	for (int i = 0; i < Lenght; i++)
 	{
