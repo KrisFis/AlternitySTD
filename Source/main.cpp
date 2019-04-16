@@ -3,6 +3,7 @@
 #include "CoreEssentials.h"
 #include "String.h"
 #include "FixedAllocator.h"
+#include "Iterator.h"
 
 #define print(text) std::cout << text << std::endl
 #define read(var) std::cin >> var
@@ -10,37 +11,22 @@
 
 int main(void)
 {
-	/*FString first("Hello World");
 
-	print(first.GetRawText());
-	print(first.GetLenght());
+#if 0
 
 	wait();
 
-	first += "_2";
+	TFixedAllocator<FString, 3> allocator;
+	allocator.Allocate(0, FString("Hello"));
+	allocator.Allocate(1, FString("World"));
+	allocator.Allocate(2, FString("!"));
 
-	print(first.GetRawText());
-	print(first.GetLenght());
-
-	wait();
-
-	FString second(first);
-
-	print("==");
-	print(second.GetRawText());
-	print(second.GetLenght());
-
-	if (first == second)
+	for (TIterator<FString> i = allocator.GetElementPtr(0); i != allocator.GetElementPtr(3); i++)
 	{
-		print("YES!!");
+		print((FString)i);
+	}
 
-		second += " mrdat";
-
-		if (first != second)
-		{
-			print("VOLE_JO!!");
-		}
-	}*/
+#endif
 
 	wait();
 

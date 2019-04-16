@@ -37,7 +37,6 @@ public: // Getters
 	FORCEINLINE bool IsValidIndex(const uint32& InIndex) const { return (InIndex < Lenght); }
 
 public: // Static fields
-
 	static const FString Empty;
 
 private: // Fields

@@ -7,10 +7,7 @@ const FString FString::Empty = FString();
 FString::FString() : 
 	TextData(nullptr), Lenght(INDEX_NONE)
 {
-	if (true)
-	{
 
-	}
 }
 
 FString::FString(const char* InText) : 

@@ -1,7 +1,7 @@
 
 #pragma once
 
-template<typename IterTargetType>
+template<typename TargetType>
 class TIterator
 {
 
@@ -15,14 +15,14 @@ public: // operators
 
 	byte*& operator++()
 	{
-		CurrentAdress += sizeof(IterTargetType);
+		CurrentAdress += sizeof(TargetType);
 		return CurrentAdress;
 	}
 
 	byte* operator++(int)
 	{
 		byte* oldAdress = CurrentAdress;
-		CurrentAdress += sizeof(IterTargetType);
+		CurrentAdress += sizeof(TargetType);
 		return oldAdress;
 	}
 
@@ -31,14 +31,14 @@ public: // operators
 		return (CurrentAdress != other.CurrentAdress);
 	}
 
-	operator IterTargetType() const
+	operator TargetType() const
 	{
-		return *reinterpret_cast<IterTargetType*>(CurrentAdress);
+		return *reinterpret_cast<TargetType*>(CurrentAdress);
 	}
 
-	IterTargetType* operator->() const
+	TargetType* operator->() const
 	{
-		return reinterpret_cast<IterTargetType*>(CurrentAdress);
+		return reinterpret_cast<TargetType*>(CurrentAdress);
 	}
 
 private: // Fields

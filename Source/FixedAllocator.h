@@ -28,10 +28,14 @@ public: // Constructors
 
 	TFixedAllocator(const TFixedAllocator& other) = delete;
 
+public: // Getters
+
+	FORCEINLINE byte* const GetElementPtr(const uint32& InIndex) { return FixedMemory + (sizeof(ElementType) * (InIndex)); }
+
 public: // Allocate methods
 
 	template<typename... _Args>
-	ElementType* Allocate(uint32 InIndex, _Args&&... InConstructArgs)
+	ElementType* Allocate(const uint32& InIndex, _Args&&... InConstructArgs)
 	{
 		ENSURE_TRUE(InIndex+1 <= NumAllocSize, nullptr);
 
@@ -47,16 +51,6 @@ public: // Allocate methods
 		for (uint32 i = InElementPtr; i <= (InElementPtr + (sizeof(ElementType))); i++)
 			InElementPtr[i] = NULL;
 	}
-
-public: // Getters
-
-	/*
-	typedef Iterator<ElementType> AllocatorIterator;
-
-	FORCEINLINE Iterator<ElementType> Begin() const { return Iterator<ElementType>(FixedMemory); }
-
-	FORCEINLINE Iterator<ElementType> End() const { return Iterator<ElementType>(FixedMemory + (sizeof(ElementType) * ConstructedElementsNum)); }
-	*/
 
 private: // Fields
 	byte* FixedMemory;

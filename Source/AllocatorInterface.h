@@ -2,5 +2,5 @@
 
 struct IAllocator
 {
-	virtual ~IAllocator() = 0;
+	virtual ~IAllocator() {}
 };
