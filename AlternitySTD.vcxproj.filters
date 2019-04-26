@@ -80,5 +80,8 @@
     <ClInclude Include="Source\AllocatorInterface.h">
       <Filter>Source\Public\Allocators</Filter>
     </ClInclude>
+    <ClInclude Include="Source\SafeEnum.h">
+      <Filter>Source\Public\Essentials\Safe Conversions</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

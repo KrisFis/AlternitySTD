@@ -6,52 +6,73 @@
 #include "SafeChar.h"
 #include "AllocatorInterface.h"
 
-// Fixed allocator allocates just fixed number of elements and do not let you allocates more than set number
-template<typename ElementType, uint32 NumAllocSize>
-class TFixedAllocator : public IAllocator
+namespace sal
 {
-
-public: // Constructors
-	TFixedAllocator() :
-		FixedMemory(nullptr)
+	// Fixed allocator allocates just fixed number of elements and do not let you allocates more than set number
+	template<typename ElementType, uint32 NumAllocSize>
+	class TFixedAllocator : public IAllocator<ElementType>
 	{
-		FixedMemory = new byte[sizeof(ElementType) * NumAllocSize];
-	}
 
-	virtual ~TFixedAllocator() 
-	{
-		if (IsValid(FixedMemory))
+	public: // Constructors
+
+		TFixedAllocator() :
+			FixedMemory(nullptr)
 		{
-			delete[] FixedMemory;
+			FixedMemory = new byte[sizeof(ElementType) * NumAllocSize];
 		}
-	}
 
-	TFixedAllocator(const TFixedAllocator& other) = delete;
 
-public: // Getters
+		// Destructor
+		virtual ~TFixedAllocator() 
+		{
+			if (IsValid(FixedMemory))
+			{
+				delete[] FixedMemory;
+			}
+		}
 
-	FORCEINLINE byte* const GetElementPtr(const uint32& InIndex) { return FixedMemory + (sizeof(ElementType) * (InIndex)); }
+		TFixedAllocator(const TFixedAllocator& other) = delete;
 
-public: // Allocate methods
+	public: // Getters
 
-	template<typename... _Args>
-	ElementType* Allocate(const uint32& InIndex, _Args&&... InConstructArgs)
-	{
-		ENSURE_TRUE(InIndex+1 <= NumAllocSize, nullptr);
+		FORCEINLINE ElementType* const GetElementPtr(const uint32& InIndex) { return IAllocator<ElementType>::CastToElementPtr(FixedMemory + (sizeof(ElementType) * (InIndex))); }
+		
+		FORCEINLINE byte* const GetBufferPtr(const uint32& InIndex) { return FixedMemory + (sizeof(ElementType) * (InIndex)); }
 
-		ElementType* resultElement = new(FixedMemory + (sizeof(ElementType) * InIndex)) ElementType(InConstructArgs...);
+	public: // Allocate methods
 
-		return resultElement;
-	}
+		ElementType* Allocate(const uint32& InIndex) override
+		{
+			ENSURE_TRUE(InIndex+1 <= NumAllocSize, nullptr);
 
-	void Deallocate(ElementType* InElementPtr)
-	{
-		ENSURE_VALID(InElementPtr);
+			ElementType* resultElement = new(FixedMemory + (sizeof(ElementType) * InIndex)) ElementType();
 
-		for (uint32 i = InElementPtr; i <= (InElementPtr + (sizeof(ElementType))); i++)
-			InElementPtr[i] = NULL;
-	}
+			return resultElement;
+		}
 
-private: // Fields
-	byte* FixedMemory;
-};
+		void Deallocate(const uint32& InIndex) override
+		{
+			ENSURE_TRUE(InIndex + 1 <= NumAllocSize);
+
+			byte* startPtr = FixedMemory + (sizeof(ElementType) * InIndex);
+
+			for (byte i = startPtr[0]; i <= startPtr[sizeof(ElementType)]; i++)
+				startPtr[i] = NULL;
+		}
+
+		void Deallocate(ElementType* InElementPtr) override
+		{
+			ENSURE_VALID(InElementPtr);
+
+			byte* recastedPtr = IAllocator<ElementType>::CastToBufferPtr(InElementPtr);
+
+			for (byte i = recastedPtr[0]; i <= recastedPtr[sizeof(ElementType)]; i++)
+				recastedPtr[i] = NULL;
+		}
+
+	private: // Fields
+
+		// Buffer storing all allocations
+		byte* FixedMemory;
+	};
+}

@@ -148,6 +148,7 @@
     <ClInclude Include="Source\CoreEssentials.h" />
     <ClInclude Include="Source\EnsureMacros.h" />
     <ClInclude Include="Source\BaseMacros.h" />
+    <ClInclude Include="Source\SafeEnum.h" />
     <ClInclude Include="Source\SafeInt.h" />
     <ClInclude Include="Source\String.h" />
   </ItemGroup>

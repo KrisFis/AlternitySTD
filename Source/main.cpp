@@ -9,24 +9,22 @@
 #define read(var) std::cin >> var
 #define wait() system("pause")
 
+using namespace sal;
+
 int main(void)
 {
-
-#if 0
 
 	wait();
 
 	TFixedAllocator<FString, 3> allocator;
-	allocator.Allocate(0, FString("Hello"));
-	allocator.Allocate(1, FString("World"));
-	allocator.Allocate(2, FString("!"));
+	allocator.Allocate(0)->SetText("Hello");
+	allocator.Allocate(1)->SetText("World");
+	allocator.Allocate(2)->SetText("!");
 
-	for (TIterator<FString> i = allocator.GetElementPtr(0); i != allocator.GetElementPtr(3); i++)
+	for (TIterator<FString> i = allocator.GetBufferPtr(0); i != allocator.GetBufferPtr(3); i++)
 	{
 		print((FString)i);
 	}
-
-#endif
 
 	wait();
 

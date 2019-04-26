@@ -3,4 +3,7 @@
 
 #include "BaseMacros.h"
 
-FORCEINLINE bool IsValid(void* InPtr) { return (InPtr != nullptr && InPtr != NULL); }
+namespace sal
+{
+	FORCEINLINE bool IsValid(void* InPtr) { return (InPtr != nullptr && InPtr != NULL); }
+}

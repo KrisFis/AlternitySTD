@@ -1,47 +1,50 @@
 
 #pragma once
 
-template<typename TargetType>
-class TIterator
+namespace sal
 {
-
-public: // Constructors and destructor
-	TIterator() = delete;
-	virtual ~TIterator() = default;
-
-	FORCEINLINE TIterator(byte* InAdress) : CurrentAdress(InAdress) { ENSURE_VALID(InAdress); }
-
-public: // operators
-
-	byte*& operator++()
+	template<typename TargetType>
+	class TIterator
 	{
-		CurrentAdress += sizeof(TargetType);
-		return CurrentAdress;
-	}
 
-	byte* operator++(int)
-	{
-		byte* oldAdress = CurrentAdress;
-		CurrentAdress += sizeof(TargetType);
-		return oldAdress;
-	}
+	public: // Constructors and destructor
+		TIterator() = delete;
+		virtual ~TIterator() = default;
 
-	bool operator!=(const TIterator& other) const
-	{
-		return (CurrentAdress != other.CurrentAdress);
-	}
+		FORCEINLINE TIterator(byte* InAdress) : CurrentAdress(InAdress) { ENSURE_VALID(InAdress); }
 
-	operator TargetType() const
-	{
-		return *reinterpret_cast<TargetType*>(CurrentAdress);
-	}
+	public: // operators
 
-	TargetType* operator->() const
-	{
-		return reinterpret_cast<TargetType*>(CurrentAdress);
-	}
+		byte*& operator++()
+		{
+			CurrentAdress += sizeof(TargetType);
+			return CurrentAdress;
+		}
 
-private: // Fields
-	byte* CurrentAdress;
+		byte* operator++(int)
+		{
+			byte* oldAdress = CurrentAdress;
+			CurrentAdress += sizeof(TargetType);
+			return oldAdress;
+		}
 
-};
+		bool operator!=(const TIterator& other) const
+		{
+			return (CurrentAdress != other.CurrentAdress);
+		}
+
+		operator TargetType() const
+		{
+			return *reinterpret_cast<TargetType*>(CurrentAdress);
+		}
+
+		TargetType* operator->() const
+		{
+			return reinterpret_cast<TargetType*>(CurrentAdress);
+		}
+
+	private: // Fields
+		byte* CurrentAdress;
+
+	};
+}
