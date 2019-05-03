@@ -26,6 +26,10 @@ namespace sal
 		// Conversion operators
 		operator char*() const;
 
+		// Assignment operators
+		FString& operator=(const FString& other);
+		FString& operator=(FString&& other);
+
 		// Arithmetic operators
 		FString operator+(const FString& other);
 		FString& operator+=(const FString& other);

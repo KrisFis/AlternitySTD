@@ -37,6 +37,9 @@
     <Filter Include="Source\Public\Collections\Iterators">
       <UniqueIdentifier>{f681ecb8-7205-4b39-bd1c-27b67e6196e1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Private\Essentials">
+      <UniqueIdentifier>{257e38ed-dc45-4d45-b125-adb51a71b280}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp">
@@ -44,6 +47,9 @@
     </ClCompile>
     <ClCompile Include="Source\String.cpp">
       <Filter>Source\Private\Types\String</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EssentialsMethods.cpp">
+      <Filter>Source\Private\Essentials</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="Source\SafeEnum.h">
       <Filter>Source\Public\Essentials\Safe Conversions</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EssentialsMethods.h">
+      <Filter>Source\Public\Essentials</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

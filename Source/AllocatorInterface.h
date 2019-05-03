@@ -20,10 +20,19 @@ namespace sal
 		virtual ElementType* Allocate(const uint32& InIndex) = 0;
 
 		// Deallocates object allocated in specific buffer location (index)
-		virtual void Deallocate(const uint32& InIndex) = 0;
+		virtual void DeallocateAt(const uint32& InIndex) = 0;
 
 		// Deallocates object allocated in this allocator
-		virtual void Deallocate(ElementType* InElementPtr) = 0;
+		virtual void Deallocate(const ElementType& InElementPtr) = 0;
+
+		// Deallocates all objects of allocator (clears whole buffer)
+		virtual void DeallocateAll() = 0;
+
+	public: // Getters
+
+		virtual ElementType* const GetElementPtr(const uint32& InIndex) const = 0;
+
+		virtual byte* const GetBufferPtr(const uint32& InIndex) const = 0;
 
 	protected: // Inner recasts
 

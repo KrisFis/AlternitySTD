@@ -4,6 +4,7 @@
 #include "String.h"
 #include "FixedAllocator.h"
 #include "Iterator.h"
+#include "List.h"
 
 #define print(text) std::cout << text << std::endl
 #define read(var) std::cin >> var
@@ -14,7 +15,7 @@ using namespace sal;
 int main(void)
 {
 
-	wait();
+#if 0
 
 	TFixedAllocator<FString, 3> allocator;
 	allocator.Allocate(0)->SetText("Hello");
@@ -25,6 +26,56 @@ int main(void)
 	{
 		print((FString)i);
 	}
+
+#else
+
+	TList<FString, TFixedAllocator<FString, 3>> CLikeList;
+	CLikeList.Add(FString("Hello"));
+	FString other("World");
+	CLikeList.Add(other);
+	other = "!";
+	CLikeList.Add(other);
+
+	wait();
+
+	CLikeList.Remove(other);
+
+	for (TIterator<FString> iter = CLikeList.Begin(); iter != CLikeList.End(); iter++)
+	{
+		print((FString)iter);
+	}
+
+	CLikeList.Clear();
+
+	CLikeList.Add("NEW MRDKA");
+	CLikeList.Add("!!");
+
+	wait();
+	
+	for (auto iter = CLikeList.Begin(); iter != CLikeList.End(); iter++)
+	{
+		print((FString)iter);
+	}
+	
+	CLikeList.RemoveAt(0);
+
+	wait();
+
+	for (auto iter = CLikeList.Begin(); iter != CLikeList.End(); iter++)
+	{
+		print((FString)iter);
+	}
+
+	CLikeList.Add("Hell yeah");
+
+	wait();
+
+	for (TIterator<FString> iter = CLikeList.Begin(); iter != CLikeList.End(); iter++)
+	{
+		print((FString)iter);
+	}
+
+#endif
 
 	wait();
 

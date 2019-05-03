@@ -85,6 +85,39 @@ namespace sal
 		return TextData;
 	}
 
+	FString& FString::operator=(const FString& other)
+	{
+		if (&other == this)
+		{
+			return *this;
+		}
+
+		delete[] TextData;
+		Lenght = other.Lenght;
+
+		TextData = new char[Lenght + 1];
+		TextData[Lenght] = INDEX_EOF;
+
+		// Assign new text
+		for (int i = 0; i < other.Lenght; i++)
+		{
+			TextData[i] = other.TextData[i];
+		}
+
+		return *this;
+	}
+
+	FString& FString::operator=(FString&& other)
+	{
+		TextData = other.TextData;
+		Lenght = other.Lenght;
+
+		other.TextData = nullptr;
+		other.Lenght = INDEX_EMPTY;
+
+		return *this;
+	}
+
 	FString FString::operator+(const FString& other)
 	{
 		uint16 resultLenght = Lenght + other.Lenght;

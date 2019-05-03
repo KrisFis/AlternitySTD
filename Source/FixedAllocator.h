@@ -18,7 +18,7 @@ namespace sal
 		TFixedAllocator() :
 			FixedMemory(nullptr)
 		{
-			FixedMemory = new byte[sizeof(ElementType) * NumAllocSize];
+			FixedMemory = new byte[GetLenghtOfBuffer()];
 		}
 
 
@@ -35,9 +35,9 @@ namespace sal
 
 	public: // Getters
 
-		FORCEINLINE ElementType* const GetElementPtr(const uint32& InIndex) { return IAllocator<ElementType>::CastToElementPtr(FixedMemory + (sizeof(ElementType) * (InIndex))); }
-		
-		FORCEINLINE byte* const GetBufferPtr(const uint32& InIndex) { return FixedMemory + (sizeof(ElementType) * (InIndex)); }
+		ElementType* const GetElementPtr(const uint32& InIndex) const override { return IAllocator<ElementType>::CastToElementPtr(FixedMemory + (sizeof(ElementType) * (InIndex))); }
+
+		byte* const GetBufferPtr(const uint32 & InIndex) const override { return FixedMemory + (sizeof(ElementType) * (InIndex)); }
 
 	public: // Allocate methods
 
@@ -50,7 +50,7 @@ namespace sal
 			return resultElement;
 		}
 
-		void Deallocate(const uint32& InIndex) override
+		void DeallocateAt(const uint32& InIndex) override
 		{
 			ENSURE_TRUE(InIndex + 1 <= NumAllocSize);
 
@@ -60,15 +60,25 @@ namespace sal
 				startPtr[i] = NULL;
 		}
 
-		void Deallocate(ElementType* InElementPtr) override
+		void Deallocate(const ElementType& InElementPtr) override
 		{
-			ENSURE_VALID(InElementPtr);
-
-			byte* recastedPtr = IAllocator<ElementType>::CastToBufferPtr(InElementPtr);
+			byte* recastedPtr = IAllocator<ElementType>::CastToBufferPtr(&const_cast<ElementType&>(InElementPtr));
 
 			for (byte i = recastedPtr[0]; i <= recastedPtr[sizeof(ElementType)]; i++)
 				recastedPtr[i] = NULL;
 		}
+
+		void DeallocateAll() override
+		{
+			for (uint32 i = 0; i < GetLenghtOfBuffer(); i++)
+			{
+				FixedMemory[i] = NULL;
+			}
+		}
+
+	private: // Helper methods
+
+		FORCEINLINE uint32 GetLenghtOfBuffer() const { return (sizeof(ElementType) * NumAllocSize); }
 
 	private: // Fields
 

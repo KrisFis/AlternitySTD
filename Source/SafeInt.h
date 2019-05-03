@@ -2,6 +2,7 @@
 #pragma once
 
 #define INDEX_NONE -1
+#define INDEX_EMPTY 0
 
 namespace sal
 {

@@ -132,6 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\EssentialsMethods.cpp" />
     <ClCompile Include="Source\main.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">DEBUG%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RELEASE,_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -140,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AllocatorInterface.h" />
+    <ClInclude Include="Source\EssentialsMethods.h" />
     <ClInclude Include="Source\FixedAllocator.h" />
     <ClInclude Include="Source\Iterator.h" />
     <ClInclude Include="Source\List.h" />

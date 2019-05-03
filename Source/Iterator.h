@@ -3,13 +3,23 @@
 
 namespace sal
 {
-	template<typename TargetType>
+	// Basic "non-const" iterator class
+	// Iterates thought allocator or any type of buffer
+	template<typename ElementType>
 	class TIterator
 	{
 
 	public: // Constructors and destructor
+		
+		// Constructor
 		TIterator() = delete;
-		virtual ~TIterator() = default;
+		
+		// Destructor
+		virtual ~TIterator()
+		{
+			// address is not created here so do not remove it here!
+			CurrentAdress = nullptr;
+		}
 
 		FORCEINLINE TIterator(byte* InAdress) : CurrentAdress(InAdress) { ENSURE_VALID(InAdress); }
 
@@ -17,14 +27,14 @@ namespace sal
 
 		byte*& operator++()
 		{
-			CurrentAdress += sizeof(TargetType);
+			CurrentAdress += sizeof(ElementType);
 			return CurrentAdress;
 		}
 
 		byte* operator++(int)
 		{
 			byte* oldAdress = CurrentAdress;
-			CurrentAdress += sizeof(TargetType);
+			CurrentAdress += sizeof(ElementType);
 			return oldAdress;
 		}
 
@@ -33,14 +43,14 @@ namespace sal
 			return (CurrentAdress != other.CurrentAdress);
 		}
 
-		operator TargetType() const
+		operator ElementType() const
 		{
-			return *reinterpret_cast<TargetType*>(CurrentAdress);
+			return *reinterpret_cast<ElementType*>(CurrentAdress);
 		}
 
-		TargetType* operator->() const
+		ElementType* operator->() const
 		{
-			return reinterpret_cast<TargetType*>(CurrentAdress);
+			return reinterpret_cast<ElementType*>(CurrentAdress);
 		}
 
 	private: // Fields
