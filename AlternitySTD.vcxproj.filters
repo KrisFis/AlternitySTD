@@ -40,6 +40,15 @@
     <Filter Include="Source\Private\Essentials">
       <UniqueIdentifier>{257e38ed-dc45-4d45-b125-adb51a71b280}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Public\Allocators\Core">
+      <UniqueIdentifier>{95270c67-5362-4910-9f7c-246a441689f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Private\Allocators">
+      <UniqueIdentifier>{c2697b8d-1e72-46a3-b1d9-a66178b0b5f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Private\Allocators\Core">
+      <UniqueIdentifier>{11d60206-ccd0-4284-89f2-545cbc9093c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp">
@@ -50,6 +59,9 @@
     </ClCompile>
     <ClCompile Include="Source\EssentialsMethods.cpp">
       <Filter>Source\Private\Essentials</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AllocatorNS.cpp">
+      <Filter>Source\Private\Allocators\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -74,23 +86,26 @@
     <ClInclude Include="Source\String.h">
       <Filter>Source\Public\Types\String</Filter>
     </ClInclude>
-    <ClInclude Include="Source\FixedAllocator.h">
-      <Filter>Source\Public\Allocators</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Iterator.h">
       <Filter>Source\Public\Collections\Iterators</Filter>
     </ClInclude>
     <ClInclude Include="Source\List.h">
       <Filter>Source\Public\Collections</Filter>
     </ClInclude>
-    <ClInclude Include="Source\AllocatorInterface.h">
-      <Filter>Source\Public\Allocators</Filter>
-    </ClInclude>
     <ClInclude Include="Source\SafeEnum.h">
       <Filter>Source\Public\Essentials\Safe Conversions</Filter>
     </ClInclude>
     <ClInclude Include="Source\EssentialsMethods.h">
       <Filter>Source\Public\Essentials</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FixedAllocator.h">
+      <Filter>Source\Public\Allocators</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\AllocatorInterface.h">
+      <Filter>Source\Public\Allocators\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\AllocatorNS.h">
+      <Filter>Source\Public\Allocators\Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

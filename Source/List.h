@@ -6,7 +6,6 @@
 #include "EnsureMacros.h"
 #include "EssentialsMethods.h"
 
-
 namespace sal
 {
 	// Basic array collection
@@ -22,7 +21,11 @@ namespace sal
 	public: // Constructors
 
 		// Basic clean init constructor
-		TList() : Allocator(new InAllocator()) { Clear(); }
+		TList() 
+			: Allocator(new InAllocator())
+			, BeginIterator(Allocator->GetBufferPtr(0))
+			, EndIterator(BeginIterator)
+		{}
 
 	public: // Destructor
 		virtual ~TList()
@@ -44,10 +47,10 @@ namespace sal
 		typedef	TIterator<ElementType> ListIterator;
 
 		// Gets begin of iteration
-		FORCEINLINE ListIterator Begin() { return ListIterator(Allocator->GetBufferPtr(0)); }
+		FORCEINLINE ListIterator Begin() { return BeginIterator; }
 
 		// Gets end of iteration
-		FORCEINLINE ListIterator End() { return ListIterator(Allocator->GetBufferPtr(CurrentSize)); }
+		FORCEINLINE ListIterator End() { return EndIterator.Update(Allocator->GetBufferPtr(CurrentSize)); }
 
 	public: // Control method
 
@@ -68,7 +71,7 @@ namespace sal
 		// Moves it (should have defined move constructor)
 		void Add(ElementType&& InElement)
 		{
-			ElementType* allocatedElement = Allocator->Allocate(CurrentSize);
+			ElementType* allocatedElement = Allocator->Allocate(CurrentSize); // CurrentSize used as allocation index is not efficient
 
 			ENSURE_VALID(allocatedElement);
 			
@@ -76,12 +79,16 @@ namespace sal
 
 			CurrentSize++;
 		}
-
-		// Removes specific element
+		
+		// Removes specific element which is copy of element
+		// * This method is more hungry than other methods
+		// * It's better to use "RemoveAt" more often than this
+		// @param - element which is copy of element we want to remove
 		void Remove(const ElementType& InElement)
 		{
-			Allocator->Deallocate(InElement);
-			CurrentSize--;
+			// This method is not implemented yet
+			// This method should be the last core method to implement
+			ENSURE_NO_ENTRY();
 		}
 
 		// Removes element at specific index
@@ -89,11 +96,36 @@ namespace sal
 		{
 			ENSURE_TRUE(InIndex <= CurrentSize - 1);
 
-			Allocator->DeallocateAt(InIndex);
+			Allocator->Deallocate(InIndex);
 			CurrentSize--;
 		}
 
-		// Clears list and removes all elements
+		// Finds reference to element by its index
+		// @param - Element reference as out parameter
+		// @param - index of element
+		// @return - has been successfully found?
+		bool FindRef(ElementType& OutElementRef, const uint32& InIndex)
+		{
+			ElementType* foundElement = Allocator->GetElement(InIndex);
+
+			if (IsValid(foundElement))
+			{
+				OutElementRef = *foundElement;
+				return true;
+			}
+
+			return false;
+		}
+
+		// Finds element at list
+		// @param - index of element in list
+		// @return - pointer to element in list
+		ElementType* Find(const uint32& InIndex)
+		{
+			return Allocator->GetElement(InIndex);
+		}
+
+		// Clears list and removes all elements of it
 		void Clear()
 		{
 			Allocator->DeallocateAll();
@@ -110,5 +142,11 @@ namespace sal
 		// Remembers current size of list
 		// Its mainly used for allocator
 		uint32 CurrentSize;
+
+		// Iterators
+		// Remember (cache) iterators
+		// Its better than many constructions
+		ListIterator BeginIterator;
+		ListIterator EndIterator;
 	};
 }

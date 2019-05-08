@@ -5,6 +5,7 @@
 #include "EnsureMacros.h"
 #include "SafeChar.h"
 #include "AllocatorInterface.h"
+#include "AllocatorNS.h"
 
 namespace sal
 {
@@ -15,74 +16,82 @@ namespace sal
 
 	public: // Constructors
 
-		TFixedAllocator() :
-			FixedMemory(nullptr)
+		TFixedAllocator() :	FixedMemory(nullptr), BlockManager(NumAllocSize)
 		{
 			FixedMemory = new byte[GetLenghtOfBuffer()];
 		}
-
 
 		// Destructor
 		virtual ~TFixedAllocator() 
 		{
 			if (IsValid(FixedMemory))
 			{
+				DeallocateAll();
 				delete[] FixedMemory;
 			}
 		}
 
 		TFixedAllocator(const TFixedAllocator& other) = delete;
 
-	public: // Getters
+	public: // IAllocator overrides
 
-		ElementType* const GetElementPtr(const uint32& InIndex) const override { return IAllocator<ElementType>::CastToElementPtr(FixedMemory + (sizeof(ElementType) * (InIndex))); }
-
-		byte* const GetBufferPtr(const uint32 & InIndex) const override { return FixedMemory + (sizeof(ElementType) * (InIndex)); }
-
-	public: // Allocate methods
-
-		ElementType* Allocate(const uint32& InIndex) override
+		virtual ElementType* Allocate(const uint32& InIndex) override final
 		{
-			ENSURE_TRUE(InIndex+1 <= NumAllocSize, nullptr);
+			ENSURE_TRUE(BlockManager.AddIndex(InIndex), nullptr);
 
 			ElementType* resultElement = new(FixedMemory + (sizeof(ElementType) * InIndex)) ElementType();
 
 			return resultElement;
 		}
 
-		void DeallocateAt(const uint32& InIndex) override
+		virtual ElementType* GetElement(const uint32& InIndex) const override final
 		{
-			ENSURE_TRUE(InIndex + 1 <= NumAllocSize);
+			return (BlockManager.IndexExists(InIndex)) ? GetElementPtr(InIndex) : nullptr;
+		}
 
-			byte* startPtr = FixedMemory + (sizeof(ElementType) * InIndex);
+		virtual bool ElementExists(const uint32& InIndex) const override final
+		{
+			return BlockManager.IndexExists(InIndex);
+		}
+
+		virtual void Deallocate(const uint32& InIndex) override final
+		{
+			ENSURE_TRUE(BlockManager.RemoveIndex(InIndex));
+
+			byte* startPtr = GetBufferPtr(InIndex);
+			CallDestructor(GetElementPtr(InIndex));
 
 			for (byte i = startPtr[0]; i <= startPtr[sizeof(ElementType)]; i++)
 				startPtr[i] = NULL;
 		}
 
-		void Deallocate(const ElementType& InElementPtr) override
+		virtual void DeallocateAll() override final
 		{
-			byte* recastedPtr = IAllocator<ElementType>::CastToBufferPtr(&const_cast<ElementType&>(InElementPtr));
-
-			for (byte i = recastedPtr[0]; i <= recastedPtr[sizeof(ElementType)]; i++)
-				recastedPtr[i] = NULL;
-		}
-
-		void DeallocateAll() override
-		{
-			for (uint32 i = 0; i < GetLenghtOfBuffer(); i++)
+			for (uint32 i = 0; i < BlockManager.Length; i++)
 			{
-				FixedMemory[i] = NULL;
+				if (BlockManager.Blocks[i] != BlockManager.EMPTY_BLOCK)
+					CallDestructor(GetElementPtr(BlockManager.Blocks[i]));
 			}
 		}
+
+	public: // IAllocator overrides
+
+		virtual byte* const GetBufferPtr(const uint32 & InIndex) const override final { return FixedMemory + (sizeof(ElementType) * (InIndex)); }
 
 	private: // Helper methods
 
 		FORCEINLINE uint32 GetLenghtOfBuffer() const { return (sizeof(ElementType) * NumAllocSize); }
 
+		FORCEINLINE ElementType* GetElementPtr(const uint32& InIndex) const { return reinterpret_cast<ElementType*>(FixedMemory + (sizeof(ElementType) * InIndex)); }
+
+		FORCEINLINE void CallDestructor(ElementType* InElement) const { InElement->~ElementType(); }
+
 	private: // Fields
 
 		// Buffer storing all allocations
 		byte* FixedMemory;
+
+		// Manages allocated blocks
+		FBlockManager BlockManager;
 	};
 }

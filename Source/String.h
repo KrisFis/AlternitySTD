@@ -12,7 +12,7 @@ namespace sal
 		FString();
 		virtual ~FString();
 
-		explicit FString(ESpecialInit Init);
+		explicit FString(EForceInit Init);
 		FString(const FString& other);
 		FString(FString&& other);
 

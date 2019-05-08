@@ -13,48 +13,63 @@ namespace sal
 		
 		// Constructor
 		TIterator() = delete;
+
+		TIterator(const TIterator<ElementType>& other)	{ CurrentAddress = other.CurrentAddress; }
 		
 		// Destructor
-		virtual ~TIterator()
-		{
-			// address is not created here so do not remove it here!
-			CurrentAdress = nullptr;
-		}
+		virtual ~TIterator() { CurrentAddress = nullptr; }
 
-		FORCEINLINE TIterator(byte* InAdress) : CurrentAdress(InAdress) { ENSURE_VALID(InAdress); }
+		FORCEINLINE TIterator(byte* InAdress) : CurrentAddress(InAdress) { ENSURE_VALID(InAdress); }
 
 	public: // operators
 
 		byte*& operator++()
 		{
-			CurrentAdress += sizeof(ElementType);
-			return CurrentAdress;
+			CurrentAddress += sizeof(ElementType);
+			return CurrentAddress;
 		}
 
 		byte* operator++(int)
 		{
-			byte* oldAdress = CurrentAdress;
-			CurrentAdress += sizeof(ElementType);
+			byte* oldAdress = CurrentAddress;
+			CurrentAddress += sizeof(ElementType);
 			return oldAdress;
 		}
 
 		bool operator!=(const TIterator& other) const
 		{
-			return (CurrentAdress != other.CurrentAdress);
+			return (CurrentAddress != other.CurrentAddress);
+		}
+
+		bool operator==(const byte* otherAddress) const
+		{
+			return (CurrentAddress == otherAddress);
 		}
 
 		operator ElementType() const
 		{
-			return *reinterpret_cast<ElementType*>(CurrentAdress);
+			return *reinterpret_cast<ElementType*>(CurrentAddress);
 		}
 
 		ElementType* operator->() const
 		{
-			return reinterpret_cast<ElementType*>(CurrentAdress);
+			return reinterpret_cast<ElementType*>(CurrentAddress);
+		}
+
+	public: // Methods
+
+		// Updates current iterator address
+		// and returns itself
+		TIterator<ElementType>& Update(byte* otherAddress)
+		{
+			ENSURE_VALID(otherAddress, *this);
+
+			if (CurrentAddress != otherAddress) CurrentAddress = otherAddress;
+
+			return *this;
 		}
 
 	private: // Fields
-		byte* CurrentAdress;
-
+		byte* CurrentAddress;
 	};
 }

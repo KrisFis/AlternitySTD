@@ -132,6 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\AllocatorNS.cpp" />
     <ClCompile Include="Source\EssentialsMethods.cpp" />
     <ClCompile Include="Source\main.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">DEBUG%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -140,6 +141,7 @@
     <ClCompile Include="Source\String.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\AllocatorNS.h" />
     <ClInclude Include="Source\AllocatorInterface.h" />
     <ClInclude Include="Source\EssentialsMethods.h" />
     <ClInclude Include="Source\FixedAllocator.h" />

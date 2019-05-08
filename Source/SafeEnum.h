@@ -3,5 +3,5 @@
 
 namespace sal
 {
-	enum class ESpecialInit : uint8 { Null, Empty };
+	enum EForceInit : uint8 { ForceInit };
 }

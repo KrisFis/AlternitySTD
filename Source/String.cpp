@@ -61,7 +61,7 @@ namespace sal
 		}
 	}
 
-	FString::FString(ESpecialInit Init) :
+	FString::FString(EForceInit Init) :
 		TextData(nullptr), Lenght(INDEX_NONE)
 	{
 
