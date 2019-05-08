@@ -18,4 +18,5 @@
 	// Ensures takes no effect when not in debug mode
 	#define ENSURE_TRUE(expression, ...)
 	#define ENSURE_VALID(ptr, ...)
+	#define ENSURE_NO_ENTRY(...)
 #endif
