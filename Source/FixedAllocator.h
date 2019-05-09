@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include <new>
+
 #include "SafeInt.h"
 #include "EnsureMacros.h"
 #include "SafeChar.h"
@@ -39,19 +41,20 @@ namespace sal
 		{
 			ENSURE_TRUE(BlockManager.AddIndex(InIndex), nullptr);
 
-			ElementType* resultElement = new(FixedMemory + (sizeof(ElementType) * InIndex)) ElementType();
-
-			return resultElement;
+			return new(FixedMemory + (sizeof(ElementType) * InIndex)) ElementType();
 		}
 
-		virtual ElementType* GetElement(const uint32& InIndex) const override final
+		virtual ElementType* Allocate() override final
 		{
-			return (BlockManager.IndexExists(InIndex)) ? GetElementPtr(InIndex) : nullptr;
-		}
+			uint32 freeIndex = 0;
+			if (!BlockManager.FindEmptyIndex(freeIndex))
+			{
+				ENSURE_NO_ENTRY(nullptr);
+			}
 
-		virtual bool ElementExists(const uint32& InIndex) const override final
-		{
-			return BlockManager.IndexExists(InIndex);
+			ENSURE_TRUE(BlockManager.AddIndex(freeIndex, false), nullptr);
+
+			return new(FixedMemory + (sizeof(ElementType) * freeIndex)) ElementType();
 		}
 
 		virtual void Deallocate(const uint32& InIndex) override final
@@ -60,9 +63,6 @@ namespace sal
 
 			byte* startPtr = GetBufferPtr(InIndex);
 			CallDestructor(GetElementPtr(InIndex));
-
-			for (byte i = startPtr[0]; i <= startPtr[sizeof(ElementType)]; i++)
-				startPtr[i] = NULL;
 		}
 
 		virtual void DeallocateAll() override final
@@ -72,6 +72,16 @@ namespace sal
 				if (BlockManager.Blocks[i] != BlockManager.EMPTY_BLOCK)
 					CallDestructor(GetElementPtr(BlockManager.Blocks[i]));
 			}
+		}
+
+		virtual ElementType* GetElement(const uint32& InIndex) const override final
+		{
+			return (BlockManager.IndexUsed(InIndex)) ? GetElementPtr(InIndex) : nullptr;
+		}
+
+		virtual bool ElementExists(const uint32& InIndex) const override final
+		{
+			return BlockManager.IndexUsed(InIndex);
 		}
 
 	public: // IAllocator overrides

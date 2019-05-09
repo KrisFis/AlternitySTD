@@ -1,4 +1,3 @@
-#include <iostream>
 
 #include "CoreEssentials.h"
 #include "String.h"
@@ -6,27 +5,19 @@
 #include "Iterator.h"
 #include "List.h"
 
-#define print(text) std::cout << text << std::endl
-#define read(var) std::cin >> var
-#define wait() system("pause")
-
 using namespace sal;
 
 void Test_List()
 {
 	TList<FString, TFixedAllocator<FString, 3>> CLikeList;
-	CLikeList.Add("LOL");
-	CLikeList.Add("NO_LOL");
-	CLikeList.Add("HELL_YEAH");
-}
+	FString one("ONE");
+	CLikeList.Add(one);
+	CLikeList.Add("TWO");
 
-void Test()
-{
-	print("Testing 'list'");
-
-	wait();
-	Test_List();
-
+	for (auto iter = CLikeList.Begin(); iter != CLikeList.End(); iter++)
+	{
+		LogMsg((FString)iter);
+	}
 }
 
 int main(void)
@@ -37,8 +28,5 @@ int main(void)
 		Test_List();
 	}
 
-	wait();
-
-	Test();
 	return 0;
 }

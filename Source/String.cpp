@@ -1,6 +1,7 @@
 
 #include "String.h"
 #include "CoreEssentials.h"
+#include "EssentialsMethods.h"
 
 namespace sal
 {
@@ -41,9 +42,14 @@ namespace sal
 	}
 
 	FString::FString(FString&& other) :
-		TextData(other.TextData),
 		Lenght(other.Lenght)
 	{
+		if (IsValid(TextData))
+		{
+			delete[] TextData;
+		}
+
+		TextData = other.TextData;
 		other.TextData = nullptr;
 	}
 
@@ -63,15 +69,14 @@ namespace sal
 
 	FString::FString(EForceInit Init) :
 		TextData(nullptr), Lenght(INDEX_NONE)
-	{
-
-	}
+	{}
 
 	FString::~FString()
 	{
 		if (IsValid(TextData))
 		{
 			delete[] TextData;
+			TextData = nullptr;
 		}
 	}
 
@@ -109,6 +114,11 @@ namespace sal
 
 	FString& FString::operator=(FString&& other)
 	{
+		if (IsValid(TextData))
+		{
+			delete[] TextData;
+		}
+
 		TextData = other.TextData;
 		Lenght = other.Lenght;
 

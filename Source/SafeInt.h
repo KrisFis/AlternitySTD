@@ -21,4 +21,10 @@ namespace sal
 	typedef unsigned short int uint16;
 	typedef long int int32;
 	typedef unsigned long int uint32;
+
+#ifdef _WIN64
+	typedef unsigned __int64    size_t;
+#else  /* _WIN64 */
+	typedef unsigned int        size_t;
+#endif
 }

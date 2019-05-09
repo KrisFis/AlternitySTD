@@ -28,7 +28,7 @@ namespace sal
 		}
 	}
 
-	bool FBlockManager::IndexExists(const uint32& InIndex) const
+	bool FBlockManager::IndexUsed(const uint32& InIndex) const
 	{
 		ENSURE_TRUE(InIndex != EMPTY_BLOCK, false);
 
@@ -40,13 +40,27 @@ namespace sal
 		return false;
 	}
 
+	bool FBlockManager::FindEmptyIndex(uint32& OutFreeIndex) const
+	{
+		for (uint32 i = 0; i < Length; i++)
+		{
+			if (Blocks[i] == EMPTY_BLOCK)
+			{
+				OutFreeIndex = i;
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	bool FBlockManager::AddIndex(const uint32& InIndex, bool CheckExistence /*= true*/)
 	{
 		ENSURE_TRUE(InIndex != EMPTY_BLOCK, false);
 
 		if (CheckExistence)
 		{
-			if (IndexExists(InIndex)) return false;
+			if (IndexUsed(InIndex)) return false;
 		}
 
 		for (uint32 i = 0; i < Length; i++)

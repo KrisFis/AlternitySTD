@@ -23,6 +23,7 @@ namespace sal
 		// Basic clean init constructor
 		TList() 
 			: Allocator(new InAllocator())
+			, CurrentSize(0)
 			, BeginIterator(Allocator->GetBufferPtr(0))
 			, EndIterator(BeginIterator)
 		{}
@@ -32,6 +33,7 @@ namespace sal
 		{
 			if (IsValid(Allocator))
 			{
+				Allocator->DeallocateAll();
 				delete Allocator;
 			}
 		}
@@ -58,11 +60,11 @@ namespace sal
 		// Copies it
 		void Add(const ElementType& InElement)
 		{
-			ElementType* allocatedElement = Allocator->Allocate(CurrentSize);
+			ElementType* allocatedElement = Allocator->Allocate();
 
 			ENSURE_VALID(allocatedElement);
 
-			(*allocatedElement) = ElementType(InElement);
+			*allocatedElement = InElement;
 
 			CurrentSize++;
 		}
@@ -71,15 +73,17 @@ namespace sal
 		// Moves it (should have defined move constructor)
 		void Add(ElementType&& InElement)
 		{
-			ElementType* allocatedElement = Allocator->Allocate(CurrentSize); // CurrentSize used as allocation index is not efficient
+			ElementType* allocatedElement = Allocator->Allocate();
 
 			ENSURE_VALID(allocatedElement);
 			
-			(*allocatedElement) = ElementType(MoveElement<ElementType>(InElement));
+			*allocatedElement = MoveElement<ElementType>(InElement);
 
 			CurrentSize++;
 		}
 		
+#if 0
+
 		// Removes specific element which is copy of element
 		// * This method is more hungry than other methods
 		// * It's better to use "RemoveAt" more often than this
@@ -90,6 +94,8 @@ namespace sal
 			// This method should be the last core method to implement
 			ENSURE_NO_ENTRY();
 		}
+
+#endif
 
 		// Removes element at specific index
 		void RemoveAt(const uint32& InIndex)

@@ -16,7 +16,12 @@ namespace sal
 
 		// Checks whether index exist in array
 		// @return - if searching was successful
-		bool IndexExists(const uint32& InIndex) const;
+		bool IndexUsed(const uint32& InIndex) const;
+
+		// Tries to find empty index (not used)
+		// @param - OUT found free index
+		// @return - whether searching operation was successful
+		bool FindEmptyIndex(uint32& OutFreeIndex) const;
 
 		// Adds index to free block
 		// @param - index to add
