@@ -44,11 +44,6 @@ namespace sal
 	FString::FString(FString&& other) :
 		Lenght(other.Lenght)
 	{
-		if (IsValid(TextData))
-		{
-			delete[] TextData;
-		}
-
 		TextData = other.TextData;
 		other.TextData = nullptr;
 	}
