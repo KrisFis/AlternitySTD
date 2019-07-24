@@ -23,30 +23,40 @@ namespace sal
 
 	public: // operators
 
-		byte*& operator++()
+		TIterator& operator++()
 		{
-			CurrentAddress += sizeof(ElementType);
-			return CurrentAddress;
+			Internal_Increment(1);
+			return *(this);
 		}
 
-		byte* operator++(int)
+		TIterator operator++(int)
 		{
 			byte* oldAdress = CurrentAddress;
-			CurrentAddress += sizeof(ElementType);
-			return oldAdress;
+			Internal_Increment(1);
+			return TIterator(oldAdress);
 		}
 
 		bool operator!=(const TIterator& other) const
 		{
-			return (CurrentAddress != other.CurrentAddress);
+			return !(operator==(other));
 		}
 
-		bool operator==(const byte* otherAddress) const
+		bool operator==(const TIterator& other) const
 		{
-			return (CurrentAddress == otherAddress);
+			return (CurrentAddress == other.CurrentAddress);
+		}
+
+		explicit operator byte*() const 
+		{
+			return CurrentAddress;
 		}
 
 		operator ElementType() const
+		{
+			return *reinterpret_cast<ElementType*>(CurrentAddress);
+		}
+
+		ElementType operator*() const
 		{
 			return *reinterpret_cast<ElementType*>(CurrentAddress);
 		}
@@ -68,6 +78,10 @@ namespace sal
 
 			return *this;
 		}
+
+	private: // Internal Methods
+
+		FORCEINLINE void Internal_Increment(const int8& PerTimes) { CurrentAddress += (sizeof(ElementType) * PerTimes); }
 
 	private: // Fields
 		byte* CurrentAddress;

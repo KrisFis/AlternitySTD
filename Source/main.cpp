@@ -14,9 +14,9 @@ void Test_List()
 	CLikeList.Add(one);
 	CLikeList.Add("TWO");
 
-	for (auto iter = CLikeList.Begin(); iter != CLikeList.End(); iter++)
+	for (FString str : CLikeList)
 	{
-		LogMsg((FString)iter);
+		LogMsg(str);
 	}
 }
 

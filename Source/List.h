@@ -49,10 +49,10 @@ namespace sal
 		typedef	TIterator<ElementType> ListIterator;
 
 		// Gets begin of iteration
-		FORCEINLINE ListIterator Begin() { return BeginIterator; }
+		FORCEINLINE ListIterator begin() { return BeginIterator; }
 
 		// Gets end of iteration
-		FORCEINLINE ListIterator End() { return EndIterator.Update(Allocator->GetBufferPtr(CurrentSize)); }
+		FORCEINLINE ListIterator end() { return EndIterator.Update(Allocator->GetBufferPtr(CurrentSize)); }
 
 	public: // Control method
 
