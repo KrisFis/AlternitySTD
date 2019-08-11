@@ -22,12 +22,6 @@
     <Filter Include="Source\Public\Essentials\Safe Conversions">
       <UniqueIdentifier>{cd11e5f5-2397-4cf8-aa7f-e866dba0b725}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Private\Types\String">
-      <UniqueIdentifier>{ce1da145-8da8-4ada-b705-d0c348e8c0a7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Public\Types\String">
-      <UniqueIdentifier>{d8220869-fba0-4a79-80c7-19514b142920}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Public\Collections">
       <UniqueIdentifier>{86985f49-7b72-4a66-9320-9d1e25983974}</UniqueIdentifier>
     </Filter>
@@ -54,14 +48,14 @@
     <ClCompile Include="Source\main.cpp">
       <Filter>Source\Private</Filter>
     </ClCompile>
-    <ClCompile Include="Source\String.cpp">
-      <Filter>Source\Private\Types\String</Filter>
-    </ClCompile>
     <ClCompile Include="Source\EssentialsMethods.cpp">
       <Filter>Source\Private\Essentials</Filter>
     </ClCompile>
     <ClCompile Include="Source\AllocatorNS.cpp">
       <Filter>Source\Private\Allocators\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AltString.cpp">
+      <Filter>Source\Private\Types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -83,9 +77,6 @@
     <ClInclude Include="Source\SafeInt.h">
       <Filter>Source\Public\Essentials\Safe Conversions</Filter>
     </ClInclude>
-    <ClInclude Include="Source\String.h">
-      <Filter>Source\Public\Types\String</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Iterator.h">
       <Filter>Source\Public\Collections\Iterators</Filter>
     </ClInclude>
@@ -106,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="Source\AllocatorNS.h">
       <Filter>Source\Public\Allocators\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\AltString.h">
+      <Filter>Source\Public\Types</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

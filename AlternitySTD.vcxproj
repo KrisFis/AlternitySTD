@@ -147,7 +147,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">DEBUG%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RELEASE,_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="Source\String.cpp" />
+    <ClCompile Include="Source\AltString.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AllocatorNS.h" />
@@ -163,7 +163,7 @@
     <ClInclude Include="Source\BaseMacros.h" />
     <ClInclude Include="Source\SafeEnum.h" />
     <ClInclude Include="Source\SafeInt.h" />
-    <ClInclude Include="Source\String.h" />
+    <ClInclude Include="Source\AltString.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

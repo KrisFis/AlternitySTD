@@ -1,5 +1,5 @@
 
-#include "String.h"
+#include "AltString.h"
 #include "CoreEssentials.h"
 #include "EssentialsMethods.h"
 

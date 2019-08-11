@@ -1,6 +1,6 @@
 
 #include "CoreEssentials.h"
-#include "String.h"
+#include "AltString.h"
 #include "FixedAllocator.h"
 #include "Iterator.h"
 #include "List.h"
