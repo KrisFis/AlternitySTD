@@ -24,11 +24,12 @@ namespace sal
 		TList() 
 			: Allocator(new InAllocator())
 			, CurrentSize(0)
-			, BeginIterator(Allocator->GetBufferPtr(0))
+			, BeginIterator(Allocator->GetElement(0))
 			, EndIterator(BeginIterator)
 		{}
 
 	public: // Destructor
+
 		virtual ~TList()
 		{
 			if (IsValid(Allocator))
@@ -52,7 +53,7 @@ namespace sal
 		FORCEINLINE ListIterator begin() { return BeginIterator; }
 
 		// Gets end of iteration
-		FORCEINLINE ListIterator end() { return EndIterator.Update(Allocator->GetBufferPtr(CurrentSize)); }
+		FORCEINLINE ListIterator end() { return EndIterator.Update(Allocator->GetElement(CurrentSize)); }
 
 	public: // Control method
 

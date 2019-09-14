@@ -101,5 +101,8 @@
     <ClInclude Include="Source\AltString.h">
       <Filter>Source\Public\Types</Filter>
     </ClInclude>
+    <ClInclude Include="Source\InlineAllocator.h">
+      <Filter>Source\Public\Allocators</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

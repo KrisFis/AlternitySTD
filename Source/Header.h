@@ -3,28 +3,30 @@
 
 #include <new>
 
-#include "SafeInt.h"
-#include "EnsureMacros.h"
-#include "SafeChar.h"
 #include "AllocatorInterface.h"
 #include "AllocatorNS.h"
+#include "SafeChar.h"
+#include "EssentialsMethods.h"
 
 namespace sal
 {
-	// Fixed allocator allocates just fixed number of elements and do not let you allocates more than set number
-	template<typename ElementType, uint32 NumAllocSize>
-	class TFixedAllocator : public IAllocator<ElementType>
+	// Inline allocator allocates first *StartNumAllocSize* of size
+	// * And reallocates its array when extends *StartNumAllocSize*
+	template<typename ElementType, uint32 StartNumAllocSize>
+	class TInlineAllocator : public IAllocator<ElementType>
 	{
 
-	public: // Constructors
+	public: // Constructor
 
-		TFixedAllocator() :	FixedMemory(nullptr), BlockManager(NumAllocSize)
+		TInlineAllocator()
+			: BlockManager(StartNumAllocSize)
 		{
-			FixedMemory = ::new byte[sizeof(ElementType) * NumAllocSize];
+			FixedMemory = ::new byte[sizeof(ElementType) * StartNumAllocSize];
 		}
 
-		// Destructor
-		virtual ~TFixedAllocator() 
+	public: // Destructor
+
+		virtual ~TInlineAllocator()
 		{
 			if (IsValid(FixedMemory))
 			{
@@ -33,7 +35,26 @@ namespace sal
 			}
 		}
 
-		TFixedAllocator(const TFixedAllocator& other) = delete;
+	public: // External methods
+
+		void ReserveMemory(const uint32& NewNumAllocSize)
+		{
+			byte* tmpFixedMemory = ::new byte[sizeof(ElementType) * NewNumAllocSize];
+
+			for (uint32 i = 0; i < BlockManager.Length; i++)
+			{
+				if (BlockManager.Blocks[i] != BlockManager.EMPTY_BLOCK)
+				{
+					ElementType* element = GetElementPtr(i);
+					::new(FixedMemory + (sizeof(ElementType) * InIndex)) ElementType(MoveElement(*element)); // we try to use move constructor
+					CallDestructor(element) // but in case move constructor do not exist (just used copy) -> call destructor
+				}
+			}
+
+			BlockManager.Length = NewNumAllocSize;
+
+			delete[] FixedMemory;
+		}
 
 	public: // IAllocator overrides
 
@@ -51,7 +72,7 @@ namespace sal
 			ENSURE_TRUE(BlockManager.FindEmptyIndex(freeIndex), nullptr);
 			ENSURE_TRUE(BlockManager.AddIndex(freeIndex, false), nullptr);
 
-			return ::new(FixedMemory + (sizeof(ElementType) * freeIndex)) ElementType();
+			return ::new(FixedMemory + (sizeof(ElementType) * InIndex)) ElementType();
 		}
 
 		virtual void Deallocate(const uint32& InIndex) override
@@ -81,20 +102,19 @@ namespace sal
 			return BlockManager.IndexUsed(InIndex);
 		}
 
-	protected: // Helper methods
+	private: // Internal methods
 
-		FORCEINLINE byte* const GetBufferPtr(const uint32 & InIndex) const { return FixedMemory + (sizeof(ElementType) * (InIndex)); }
+		FORCEINLINE byte* const GetBufferPtr(const uint32& InIndex) const { return FixedMemory + (sizeof(ElementType) * (InIndex)); }
 
 		FORCEINLINE ElementType* GetElementPtr(const uint32& InIndex) const { return reinterpret_cast<ElementType*>(FixedMemory + (sizeof(ElementType) * InIndex)); }
 
-		FORCEINLINE void CallDestructor(ElementType* InElement) const { InElement->~ElementType(); }
+		FORCEINLINE void CallDestructor(ElementType* Element) const { Element->~ElementType(); }
 
-	protected: // Fields
+	private: // Fields
 
-		// Buffer storing all allocations
 		byte* FixedMemory;
 
-		// Manages allocated blocks
 		FBlockManager BlockManager;
-	};
+
+	}
 }

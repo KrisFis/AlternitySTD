@@ -4,7 +4,6 @@
 
 namespace sal
 {
-
 	void LogWait()
 	{
 		system("PAUSE");

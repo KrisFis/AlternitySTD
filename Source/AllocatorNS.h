@@ -1,10 +1,10 @@
 
 #pragma once
+
 #include "SafeInt.h"
 
 namespace sal
 {
-	
 	// Struct used by allocators
 	// Its for remembering allocated blocks
 	// Is necessary for deallocation

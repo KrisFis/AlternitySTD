@@ -21,6 +21,8 @@ namespace sal
 
 		FORCEINLINE TIterator(byte* InAdress) : CurrentAddress(InAdress) { ENSURE_VALID(InAdress); }
 
+		FORCEINLINE TIterator(void* InAdress) : CurrentAddress(reinterpret_cast<byte*>(InAdress)) { ENSURE_VALID(InAdress); }
+
 	public: // operators
 
 		TIterator& operator++()
@@ -79,11 +81,14 @@ namespace sal
 			return *this;
 		}
 
+		FORCEINLINE TIterator<ElementType>& Update(void* otherAddress) { return Update(reinterpret_cast<byte*>(otherAddress)); }
+
 	private: // Internal Methods
 
 		FORCEINLINE void Internal_Increment(const int8& PerTimes) { CurrentAddress += (sizeof(ElementType) * PerTimes); }
 
 	private: // Fields
+
 		byte* CurrentAddress;
 	};
 }

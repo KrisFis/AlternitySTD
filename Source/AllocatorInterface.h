@@ -36,9 +36,5 @@ namespace sal
 		// Gets existing of object
 		// @return - whether object exist at allocator
 		virtual bool ElementExists(const uint32& InIndex) const = 0;
-
-	public: // JUST FOR INNER PURPOSES, gets raw byte pointer
-
-		virtual byte* const GetBufferPtr(const uint32& InIndex) const = 0;
 	};
 }
