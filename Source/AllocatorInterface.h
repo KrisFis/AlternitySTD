@@ -18,17 +18,23 @@ namespace sal
 
 	public: // Control methods
 
-		// Allocates new object at specific index
-		virtual ElementType* Allocate(const uint32& InIndex) = 0;
-
 		// Allocates new object and finds it free index
 		virtual ElementType* Allocate() = 0;
 
-		// Deallocates object allocated in specific buffer location (index)
-		virtual void Deallocate(const uint32& InIndex) = 0;
+		// Allocates new object and try to use move (otherwise copy) from initialized element
+		virtual ElementType* AllocateInitialized(ElementType* InElement) = 0;
+
+		// Allocates new object at specific index
+		virtual ElementType* Allocate(const uint32& InIndex) = 0;
+
+		// Allocates new object at specific index and try to use move (otherwise copy) from initialized element
+		virtual ElementType* AllocateInitialized(const uint32& InIndex, ElementType* InElement) = 0;
 
 		// Deallocates all allocated objects
 		virtual void DeallocateAll() = 0;
+
+		// Deallocates object allocated in specific buffer location (index)
+		virtual void Deallocate(const uint32& InIndex) = 0;
 
 		// Reserves size for elements at heap
 		virtual void Reserve(const uint32& ReserveSize) = 0;

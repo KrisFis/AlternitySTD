@@ -12,6 +12,8 @@
 #define M_UINT16 65535
 #define M_INT32 2147483647
 #define M_UINT32 4294967295
+#define M_INT64 9223372036854775807
+#define M_UINT64 18446744073709551615
 
 namespace sal
 {
@@ -21,6 +23,8 @@ namespace sal
 	typedef unsigned short int uint16;
 	typedef long int int32;
 	typedef unsigned long int uint32;
+	typedef long long int int64;
+	typedef unsigned long long int uint64;
 
 #ifdef _WIN64
 	typedef unsigned __int64    size_t;

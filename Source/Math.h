@@ -3,7 +3,7 @@
 
 namespace sal
 {
-	struct FMath
+	namespace Math
 	{
 		// Get higher value of two values
 		// @param - first value

@@ -64,7 +64,7 @@ namespace sal
 
 	FString::FString(EForceInit Init) :
 		TextData(nullptr), Lenght(INDEX_NONE)
-	{}
+	{	}
 
 	FString::~FString()
 	{
@@ -108,8 +108,7 @@ namespace sal
 	}
 
 	FString& FString::operator=(FString&& other)
-	{
-		if (IsValid(TextData))
+	{		if (IsValid(TextData))
 		{
 			delete[] TextData;
 		}

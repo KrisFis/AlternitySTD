@@ -43,5 +43,4 @@ namespace sal
 
 		static const uint32 EMPTY_BLOCK = M_UINT32;
 	};
-
 }

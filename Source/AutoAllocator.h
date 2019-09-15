@@ -5,7 +5,6 @@
 
 #include <new>
 #include "SafeChar.h"
-#include "AllocatorNS.h"
 
 namespace sal
 {
@@ -19,14 +18,9 @@ namespace sal
 
 		typedef TFixedAllocator<ElementType, InitSize> Super;
 
-	private: // Asserts
-
-		static_assert(InitSize > 0, 
-			"Set start reserve size bigger than 0!");
-
 	public: // IAllocator override
 
-		virtual ElementType* Allocate() override
+		virtual ElementType* Allocate(ElementType* InElement) override
 		{
 			uint32 freeIndex = 0;
 
@@ -38,7 +32,10 @@ namespace sal
 
 			ENSURE_TRUE(Super::BlockManager.AddIndex(freeIndex, false), nullptr);
 
-			return ::new(Super::FixedMemory + (sizeof(ElementType) * freeIndex)) ElementType();
+			if (IsValid(InElement))
+				return Super::CallConstructorWithMoveOrCopy(Super::GetElementPtr(freeIndex), InElement);
+			else
+				return CAlloc::CallConstructor(Super::GetElementPtr(freeIndex));
 		}
 	};
 

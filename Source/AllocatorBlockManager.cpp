@@ -1,52 +1,39 @@
 
-#include "AllocatorNS.h"
+#include "AllocatorBlockManager.h"
+#include "CAllocation.h"
+
 #include "SafeInt.h"
 #include "EnsuresAssertion.h"
 #include "EnsureMacros.h"
 
+#include "EssentialsMethods.h"
+
+using namespace sal::CAlloc;
+
 namespace sal
 {
 	FAllocatorBlockManager::FAllocatorBlockManager(const uint32& InLenght)
-		: Blocks(nullptr)
-		, Length(InLenght)
+		: Length(InLenght)
 	{
-		Blocks = new uint32[InLenght];
-
-		for (uint32 i = 0; i < InLenght; ++i)
-		{
-			Blocks[i] = EMPTY_BLOCK;
-		}
+		Blocks = Mallocate<uint32>(InLenght, EMPTY_BLOCK);
 	}
 
 	FAllocatorBlockManager::~FAllocatorBlockManager()
 	{
+
 		if (IsValid(Blocks))
 		{
-			delete[] Blocks;
+			Deallocate(Blocks);
 		}
 	}
 
 	void FAllocatorBlockManager::ReserveLenght(const uint32& InNewLenght)
 	{
+
 		if (Length >= InNewLenght) return; // Ignores lowering
 
-		uint32* tempBlocks = new uint32[InNewLenght];
-
-		for (uint32 i = 0; i < Length; ++i)
-		{
-			tempBlocks[i] = Blocks[i];
-		}
-
-		for (uint32 i = Length; i < InNewLenght; ++i)
-		{
-			tempBlocks[i] = EMPTY_BLOCK;
-		}
-
+		Blocks = Reallocate(Blocks, Length, InNewLenght, EMPTY_BLOCK);
 		Length = InNewLenght;
-
-		delete[] Blocks;
-
-		Blocks = tempBlocks;
 	}
 
 	bool FAllocatorBlockManager::IndexUsed(const uint32& InIndex) const

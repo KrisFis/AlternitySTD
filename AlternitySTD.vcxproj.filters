@@ -49,6 +49,9 @@
     <Filter Include="Source\Private\Math">
       <UniqueIdentifier>{453afc6d-93e3-4041-92ef-8e2673a3905b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Public\Essentials\Allocations">
+      <UniqueIdentifier>{2d950a21-350b-4440-b3c8-066f9b924b61}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp">
@@ -57,14 +60,14 @@
     <ClCompile Include="Source\EssentialsMethods.cpp">
       <Filter>Source\Private\Essentials</Filter>
     </ClCompile>
-    <ClCompile Include="Source\AllocatorNS.cpp">
-      <Filter>Source\Private\Allocators\Core</Filter>
-    </ClCompile>
     <ClCompile Include="Source\AltString.cpp">
       <Filter>Source\Private\Types</Filter>
     </ClCompile>
     <ClCompile Include="Source\Math.cpp">
       <Filter>Source\Private\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AllocatorBlockManager.cpp">
+      <Filter>Source\Private\Allocators\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -104,9 +107,6 @@
     <ClInclude Include="Source\AllocatorInterface.h">
       <Filter>Source\Public\Allocators\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Source\AllocatorNS.h">
-      <Filter>Source\Public\Allocators\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Source\AltString.h">
       <Filter>Source\Public\Types</Filter>
     </ClInclude>
@@ -115,6 +115,12 @@
     </ClInclude>
     <ClInclude Include="Source\Math.h">
       <Filter>Source\Public\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\AllocatorBlockManager.h">
+      <Filter>Source\Public\Allocators\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CAllocation.h">
+      <Filter>Source\Public\Essentials\Allocations</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

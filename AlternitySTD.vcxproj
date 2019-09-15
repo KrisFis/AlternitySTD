@@ -188,6 +188,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -200,6 +201,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>_DEBUG; _LIBRARY; _LIBRARY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -216,6 +218,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>CoreEssentials.h</PrecompiledHeaderFile>
       <PreprocessorDefinitions>_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -233,6 +236,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>CoreEssentials.h</PrecompiledHeaderFile>
       <PreprocessorDefinitions>_RELEASE; _LIBRARY; %(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -248,6 +252,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -263,6 +268,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>_RELEASE; _LIBRARY; %(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -270,7 +276,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\AllocatorNS.cpp" />
+    <ClCompile Include="Source\AllocatorBlockManager.cpp" />
     <ClCompile Include="Source\EssentialsMethods.cpp" />
     <ClCompile Include="Source\main.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">DEBUG%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -282,8 +288,9 @@
     <ClCompile Include="Source\Math.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\AllocatorNS.h" />
+    <ClInclude Include="Source\AllocatorBlockManager.h" />
     <ClInclude Include="Source\AllocatorInterface.h" />
+    <ClInclude Include="Source\CAllocation.h" />
     <ClInclude Include="Source\EssentialsMethods.h" />
     <ClInclude Include="Source\FixedAllocator.h" />
     <ClInclude Include="Source\AutoAllocator.h" />

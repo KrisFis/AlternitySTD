@@ -35,7 +35,6 @@ namespace sal
 		{
 			if (IsValid(Allocator))
 			{
-				Allocator->DeallocateAll();
 				delete Allocator;
 			}
 		}
@@ -75,12 +74,10 @@ namespace sal
 		// Moves it (should have defined move constructor)
 		void Add(ElementType&& InElement)
 		{
-			ElementType* allocatedElement = Allocator->Allocate();
+			ElementType* allocatedElement = Allocator->AllocateInitialized(&InElement);
 
 			ENSURE_VALID(allocatedElement);
 			
-			*allocatedElement = MoveElement<ElementType>(InElement);
-
 			CurrentSize++;
 		}
 		
