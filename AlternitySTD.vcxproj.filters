@@ -43,6 +43,12 @@
     <Filter Include="Source\Private\Allocators\Core">
       <UniqueIdentifier>{11d60206-ccd0-4284-89f2-545cbc9093c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Public\Math">
+      <UniqueIdentifier>{e705f01b-b43c-4fcd-942d-7539114c28dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Private\Math">
+      <UniqueIdentifier>{453afc6d-93e3-4041-92ef-8e2673a3905b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp">
@@ -56,6 +62,9 @@
     </ClCompile>
     <ClCompile Include="Source\AltString.cpp">
       <Filter>Source\Private\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Math.cpp">
+      <Filter>Source\Private\Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -101,8 +110,11 @@
     <ClInclude Include="Source\AltString.h">
       <Filter>Source\Public\Types</Filter>
     </ClInclude>
-    <ClInclude Include="Source\InlineAllocator.h">
+    <ClInclude Include="Source\AutoAllocator.h">
       <Filter>Source\Public\Allocators</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Math.h">
+      <Filter>Source\Public\Math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

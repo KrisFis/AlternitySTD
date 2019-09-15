@@ -16,6 +16,7 @@ namespace sal
 	{
 
 	public: // Typedefs
+
 		typedef InElementType ElementType;
 
 	public: // Constructors

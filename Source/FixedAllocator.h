@@ -12,15 +12,20 @@
 namespace sal
 {
 	// Fixed allocator allocates just fixed number of elements and do not let you allocates more than set number
-	template<typename ElementType, uint32 NumAllocSize>
+	template<typename ElementType, uint32 InitSize>
 	class TFixedAllocator : public IAllocator<ElementType>
 	{
 
+	private: // Asserts
+
+		static_assert(InitSize > 0,
+			"Set start reserve size bigger than 0!");
+
 	public: // Constructors
 
-		TFixedAllocator() :	FixedMemory(nullptr), BlockManager(NumAllocSize)
+		TFixedAllocator() :	FixedMemory(nullptr), BlockManager(InitSize)
 		{
-			FixedMemory = ::new byte[sizeof(ElementType) * NumAllocSize];
+			FixedMemory = ::new byte[sizeof(ElementType) * InitSize];
 		}
 
 		// Destructor
@@ -67,13 +72,37 @@ namespace sal
 			for (uint32 i = 0; i < BlockManager.Length; i++)
 			{
 				if (BlockManager.Blocks[i] != BlockManager.EMPTY_BLOCK)
+				{
 					CallDestructor(GetElementPtr(BlockManager.Blocks[i]));
+					BlockManager.Blocks[i] = BlockManager.EMPTY_BLOCK;
+				}
 			}
+		}
+
+		virtual void Reserve(const uint32& ReserveSize)
+		{
+			if (ReserveSize <= BlockManager.Length) return;
+
+			byte* tmpFixedMemory = ::new byte[sizeof(ElementType) * ReserveSize];
+
+			for (uint32 i = 0; i < BlockManager.Length; i++)
+			{
+				if (BlockManager.Blocks[i] != BlockManager.EMPTY_BLOCK)
+				{
+					ElementType* element = GetElementPtr(i);
+					::new(FixedMemory + (sizeof(ElementType) * i)) ElementType(MoveElement(*element));
+					CallDestructor(element);
+				}
+			}
+
+			BlockManager.Length = ReserveSize;
+
+			delete[] FixedMemory;
 		}
 
 		virtual ElementType* GetElement(const uint32& InIndex) const override
 		{
-			return (BlockManager.IndexUsed(InIndex)) ? GetElementPtr(InIndex) : nullptr;
+			return GetElementPtr(InIndex);
 		}
 
 		virtual bool ElementExists(const uint32& InIndex) const override
@@ -95,6 +124,6 @@ namespace sal
 		byte* FixedMemory;
 
 		// Manages allocated blocks
-		FBlockManager BlockManager;
+		FAllocatorBlockManager BlockManager;
 	};
 }

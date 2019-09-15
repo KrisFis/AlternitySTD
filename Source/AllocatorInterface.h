@@ -30,6 +30,9 @@ namespace sal
 		// Deallocates all allocated objects
 		virtual void DeallocateAll() = 0;
 
+		// Reserves size for elements at heap
+		virtual void Reserve(const uint32& ReserveSize) = 0;
+
 		// Gets allocated object
 		virtual ElementType* GetElement(const uint32& InIndex) const = 0;
 

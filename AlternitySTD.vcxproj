@@ -279,15 +279,17 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release Library|Win32'">RELEASE,_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <ClCompile Include="Source\AltString.cpp" />
+    <ClCompile Include="Source\Math.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AllocatorNS.h" />
     <ClInclude Include="Source\AllocatorInterface.h" />
     <ClInclude Include="Source\EssentialsMethods.h" />
     <ClInclude Include="Source\FixedAllocator.h" />
-    <ClInclude Include="Source\InlineAllocator.h" />
+    <ClInclude Include="Source\AutoAllocator.h" />
     <ClInclude Include="Source\Iterator.h" />
     <ClInclude Include="Source\List.h" />
+    <ClInclude Include="Source\Math.h" />
     <ClInclude Include="Source\SafeChar.h" />
     <ClInclude Include="Source\EnsuresAssertion.h" />
     <ClInclude Include="Source\CoreEssentials.h" />

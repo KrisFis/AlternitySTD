@@ -8,11 +8,14 @@ namespace sal
 	// Struct used by allocators
 	// Its for remembering allocated blocks
 	// Is necessary for deallocation
-	struct FBlockManager
+	struct FAllocatorBlockManager
 	{
-		FBlockManager(const uint32& InLenght);
+		FAllocatorBlockManager(const uint32& InLenght);
 
-		virtual ~FBlockManager();
+		virtual ~FAllocatorBlockManager();
+
+		// Changes and reallocates array of blocks
+		void ReserveLenght(const uint32& InNewLenght);
 
 		// Checks whether index exist in array
 		// @return - if searching was successful
