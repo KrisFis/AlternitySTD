@@ -52,6 +52,9 @@
     <Filter Include="Source\Public\Essentials\Allocations">
       <UniqueIdentifier>{2d950a21-350b-4440-b3c8-066f9b924b61}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Other">
+      <UniqueIdentifier>{66e5f369-639d-46fc-9223-07761c11d535}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp">
@@ -122,5 +125,10 @@
     <ClInclude Include="Source\CAllocation.h">
       <Filter>Source\Public\Essentials\Allocations</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="Other\AlternitySTD.natvis">
+      <Filter>Other</Filter>
+    </Natvis>
   </ItemGroup>
 </Project>

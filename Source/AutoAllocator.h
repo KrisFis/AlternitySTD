@@ -20,22 +20,34 @@ namespace sal
 
 	public: // IAllocator override
 
-		virtual ElementType* Allocate(ElementType* InElement) override
+		virtual ElementType* Allocate() override
 		{
 			uint32 freeIndex = 0;
 
 			if (!Super::BlockManager.FindEmptyIndex(freeIndex))
 			{
 				freeIndex = Super::BlockManager.Length;
-				Super::BlockManager.ReserveLenght(freeIndex * 2);
+				Super::Reserve(freeIndex * 2);
 			}
 
 			ENSURE_TRUE(Super::BlockManager.AddIndex(freeIndex, false), nullptr);
 
-			if (IsValid(InElement))
-				return Super::CallConstructorWithMoveOrCopy(Super::GetElementPtr(freeIndex), InElement);
-			else
-				return CAlloc::CallConstructor(Super::GetElementPtr(freeIndex));
+			return CAlloc::CallConstructor(Super::GetElementPtr(freeIndex));
+		}
+
+		virtual ElementType* AllocateInitialized(ElementType* InElement) override
+		{
+			uint32 freeIndex = 0;
+
+			if (!Super::BlockManager.FindEmptyIndex(freeIndex))
+			{
+				freeIndex = Super::BlockManager.Length;
+				Super::Reserve(freeIndex * 2);
+			}
+
+			ENSURE_TRUE(Super::BlockManager.AddIndex(freeIndex, false), nullptr);
+
+			return Super::CallConstructorWithMoveOrCopy(Super::GetElementPtr(freeIndex), InElement);
 		}
 	};
 

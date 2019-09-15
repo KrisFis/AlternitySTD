@@ -39,11 +39,17 @@ namespace sal
 		// Reserves size for elements at heap
 		virtual void Reserve(const uint32& ReserveSize) = 0;
 
-		// Gets allocated object
-		virtual ElementType* GetElement(const uint32& InIndex) const = 0;
-
 		// Gets existing of object
 		// @return - whether object exist at allocator
 		virtual bool ElementExists(const uint32& InIndex) const = 0;
+
+		// Gets allocated object by its index
+		virtual ElementType* GetElement(const uint32& InIndex) const = 0;
+
+		// Gets first element in allocator
+		virtual ElementType* GetFirstElement() const = 0;
+
+		// Gets last element in allocator
+		virtual ElementType* GetLastElement() const = 0;
 	};
 }

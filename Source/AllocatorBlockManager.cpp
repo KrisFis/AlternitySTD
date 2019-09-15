@@ -29,7 +29,6 @@ namespace sal
 
 	void FAllocatorBlockManager::ReserveLenght(const uint32& InNewLenght)
 	{
-
 		if (Length >= InNewLenght) return; // Ignores lowering
 
 		Blocks = Reallocate(Blocks, Length, InNewLenght, EMPTY_BLOCK);

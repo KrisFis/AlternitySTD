@@ -25,7 +25,7 @@ namespace sal
 		TList() 
 			: Allocator(new InAllocator())
 			, CurrentSize(0)
-			, BeginIterator(Allocator->GetElement(0))
+			, BeginIterator(Allocator->GetFirstElement())
 			, EndIterator(BeginIterator)
 		{}
 
@@ -53,7 +53,7 @@ namespace sal
 		FORCEINLINE ListIterator begin() { return BeginIterator; }
 
 		// Gets end of iteration
-		FORCEINLINE ListIterator end() { return EndIterator.Update(Allocator->GetElement(CurrentSize)); }
+		FORCEINLINE ListIterator end() { return EndIterator.Update(Allocator->GetLastElement()); }
 
 	public: // Control method
 

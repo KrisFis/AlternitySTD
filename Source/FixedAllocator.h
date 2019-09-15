@@ -99,18 +99,40 @@ namespace sal
 		{
 			if (ReserveSize <= BlockManager.Length) return;
 
-			FixedMemory = CAlloc::Reallocate(FixedMemory, BlockManager.Length, ReserveSize);
-			BlockManager.ReserveLenght(ReserveSize);
-		}
+			byte* tmpMemory = CAlloc::Mallocate<byte>(ReserveSize);
+			
+			for (uint32 i = 0; i < BlockManager.Length; i++)
+			{
+				if (BlockManager.Blocks[i] != BlockManager.EMPTY_BLOCK)
+				{
+					MoveOrCopyElementToOtherMemory(FixedMemory, tmpMemory, i);
+				}
+			}
 
-		virtual ElementType* GetElement(const uint32& InIndex) const override
-		{
-			return GetElementPtr(InIndex);
+			CAlloc::Deallocate(FixedMemory);
+			FixedMemory = tmpMemory;
+
+			BlockManager.ReserveLenght(ReserveSize);
 		}
 
 		virtual bool ElementExists(const uint32& InIndex) const override
 		{
 			return BlockManager.IndexUsed(InIndex);
+		}
+
+		virtual ElementType* GetElement(const uint32& InIndex) const override
+		{
+			return (BlockManager.IndexUsed(InIndex)) ? GetElementPtr(InIndex) : nullptr;
+		}
+
+		virtual ElementType* GetFirstElement() const override
+		{
+			return GetElementPtr(0);
+		}
+
+		virtual ElementType* GetLastElement() const override
+		{
+			return GetElementPtr(BlockManager.Length-1);
 		}
 
 	protected: // Helper methods
@@ -126,6 +148,14 @@ namespace sal
 			CAlloc::CallDestructor(ToCopyOrMove);
 
 			return result;
+		}
+
+		void MoveOrCopyElementToOtherMemory(byte* FromMemory, byte* ToMemory, const uint32& InIndex)
+		{
+			ElementType* fromElement = reinterpret_cast<ElementType*>(FromMemory + (sizeof(ElementType) * InIndex));
+			ElementType* toElement = reinterpret_cast<ElementType*>(ToMemory + (sizeof(ElementType) * InIndex));
+
+			CallConstructorWithMoveOrCopy(toElement, fromElement);
 		}
 
 	protected: // Fields

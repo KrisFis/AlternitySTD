@@ -45,7 +45,9 @@ namespace sal
 		Lenght(other.Lenght)
 	{
 		TextData = other.TextData;
+
 		other.TextData = nullptr;
+		other.Lenght = INDEX_EMPTY;
 	}
 
 	FString::FString(const FString& other) :

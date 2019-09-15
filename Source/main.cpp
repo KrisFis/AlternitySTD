@@ -9,7 +9,7 @@ using namespace sal;
 
 void Test_List()
 {
-	TList<FString, TFixedAllocator<FString, 5>> CLikeList;
+	TList<FString, TAutoAllocator<FString, 1>> CLikeList;
 	FString one("Hello");
  	CLikeList.Add(one);
 	CLikeList.Add("World");

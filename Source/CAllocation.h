@@ -12,6 +12,16 @@ namespace sal
 {
 	namespace CAlloc
 	{
+		// Deallocates previously allocated dynamic memory
+		// * Does not call destructor
+		// @param - pointer to dynamic memory
+		template<typename ObjectType>
+		void Deallocate(ObjectType*& Ptr)
+		{
+			free(Ptr);
+			Ptr = nullptr;
+		}
+
 		// Allocate new dynamic memory with defined size
 		// * Simple allocation without any init value
 		// * Does not call constructor
@@ -21,7 +31,7 @@ namespace sal
 		template<typename ObjectType>
 		ObjectType* Mallocate(const uint32& Size)
 		{
-			return (ObjectType*)malloc(sizeof(ObjectType) * Size);
+			return (ObjectType*) malloc(sizeof(ObjectType) * Size);
 		}
 
 		// Allocate new dynamic memory with defined size
@@ -34,7 +44,7 @@ namespace sal
 		template<typename ObjectType>
 		ObjectType* Mallocate(const uint32& Size, const ObjectType& InitValue)
 		{
-			ObjectType* returnValue = (ObjectType*)malloc(sizeof(ObjectType) * Size);
+			ObjectType* returnValue = Mallocate<ObjectType>(Size);
 
 			for (uint32 i = 0; i < Size; ++i)
 			{
@@ -55,15 +65,14 @@ namespace sal
 		template<typename ObjectType>
 		ObjectType* Reallocate(ObjectType*& BasePtr, const uint32& LastSize, const uint32& NewSize)
 		{
-			ObjectType* resultPtr = (ObjectType*)malloc(sizeof(ObjectType) * NewSize);
+			ObjectType* resultPtr = Mallocate<ObjectType>(NewSize);
 
-			for (uint32 i = 0; i < Math::Max(LastSize, NewSize); ++i)
+			for (uint32 i = 0; i < Math::Min(LastSize, NewSize); ++i)
 			{
 				resultPtr[i] = BasePtr[i];
 			}
 
-			free(BasePtr);
-			BasePtr = nullptr;
+			Deallocate(BasePtr);
 
 			return resultPtr;
 		}
@@ -80,15 +89,7 @@ namespace sal
 		template<typename ObjectType>
 		ObjectType* Reallocate(ObjectType*& BasePtr, const uint32& LastSize, const uint32& NewSize, const ObjectType& InitValue)
 		{
-			ObjectType* resultPtr = (ObjectType*)malloc(sizeof(ObjectType) * NewSize);
-
-			for (uint32 i = 0; i < Math::Max(LastSize, NewSize); ++i)
-			{
-				resultPtr[i] = BasePtr[i];
-			}
-
-			free(BasePtr);
-			BasePtr = nullptr;
+			ObjectType* resultPtr = Reallocate(BasePtr, LastSize, NewSize);
 
 			for (uint32 i = LastSize; i < NewSize; ++i)
 			{
@@ -96,16 +97,6 @@ namespace sal
 			}
 
 			return resultPtr;
-		}
-
-		// Deallocates previously allocated dynamic memory
-		// * Does not call destructor
-		// @param - pointer to dynamic memory
-		template<typename ObjectType>
-		void Deallocate(ObjectType*& Ptr)
-		{
-			free(Ptr);
-			Ptr = nullptr;
 		}
 
 		// Calls *default* constructor of object
