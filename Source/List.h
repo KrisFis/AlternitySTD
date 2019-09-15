@@ -25,8 +25,8 @@ namespace sal
 		TList() 
 			: Allocator(new InAllocator())
 			, CurrentSize(0)
-			, BeginIterator(Allocator->GetFirstElement())
-			, EndIterator(BeginIterator)
+			, BeginIterator(nullptr)
+			, EndIterator(nullptr)
 		{}
 
 	public: // Destructor
@@ -50,10 +50,10 @@ namespace sal
 		typedef	TIterator<ElementType> ListIterator;
 
 		// Gets begin of iteration
-		FORCEINLINE ListIterator begin() { return BeginIterator; }
+		FORCEINLINE ListIterator begin() { return BeginIterator.Update(reinterpret_cast<byte*>(Allocator->GetFirstElement())); }
 
 		// Gets end of iteration
-		FORCEINLINE ListIterator end() { return EndIterator.Update(Allocator->GetLastElement()); }
+		FORCEINLINE ListIterator end() { return EndIterator.Update(reinterpret_cast<byte*>(Allocator->GetLastElement())); }
 
 	public: // Control method
 
@@ -135,6 +135,11 @@ namespace sal
 		{
 			Allocator->DeallocateAll();
 			CurrentSize = 0;
+		}
+
+		void Reserve(const uint32& InNewSize)
+		{
+			Allocator->Reserve(InNewSize);
 		}
 
 	private: // Fields

@@ -20,7 +20,6 @@ namespace sal
 
 	FAllocatorBlockManager::~FAllocatorBlockManager()
 	{
-
 		if (IsValid(Blocks))
 		{
 			Deallocate(Blocks);

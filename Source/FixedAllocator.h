@@ -25,7 +25,8 @@ namespace sal
 	public: // Constructors
 
 		TFixedAllocator() :	FixedMemory(nullptr), BlockManager(InitSize)
-		{			FixedMemory = reinterpret_cast<byte*>(CAlloc::Mallocate<ElementType>(InitSize));
+		{
+			FixedMemory = reinterpret_cast<byte*>(CAlloc::Mallocate<ElementType>(InitSize));
 		}
 
 		// Destructor
@@ -33,7 +34,8 @@ namespace sal
 		{
 			if (IsValid(FixedMemory))
 			{
-				DeallocateAll();				CAlloc::Deallocate(FixedMemory);
+				DeallocateAll();
+				CAlloc::Deallocate(FixedMemory);
 			}
 		}
 
@@ -92,14 +94,13 @@ namespace sal
 			ENSURE_TRUE(BlockManager.RemoveIndex(InIndex));
 
 			CAlloc::CallDestructor(GetElementPtr(InIndex));
-
 		}
 
 		virtual void Reserve(const uint32& ReserveSize)
 		{
 			if (ReserveSize <= BlockManager.Length) return;
 
-			byte* tmpMemory = CAlloc::Mallocate<byte>(ReserveSize);
+			byte* tmpMemory = reinterpret_cast<byte*>(CAlloc::Mallocate<ElementType>(ReserveSize));
 			
 			for (uint32 i = 0; i < BlockManager.Length; i++)
 			{
@@ -132,7 +133,7 @@ namespace sal
 
 		virtual ElementType* GetLastElement() const override
 		{
-			return GetElementPtr(BlockManager.Length-1);
+			return GetElementPtr(BlockManager.Length);
 		}
 
 	protected: // Helper methods

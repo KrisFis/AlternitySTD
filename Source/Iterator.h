@@ -19,9 +19,7 @@ namespace sal
 		// Destructor
 		virtual ~TIterator() { CurrentAddress = nullptr; }
 
-		FORCEINLINE TIterator(byte* InAdress) : CurrentAddress(InAdress) { ENSURE_VALID(InAdress); }
-
-		FORCEINLINE TIterator(void* InAdress) : CurrentAddress(reinterpret_cast<byte*>(InAdress)) { ENSURE_VALID(InAdress); }
+		FORCEINLINE TIterator(byte* InAdress) : CurrentAddress(InAdress) { }
 
 	public: // operators
 
@@ -80,8 +78,6 @@ namespace sal
 
 			return *this;
 		}
-
-		FORCEINLINE TIterator<ElementType>& Update(void* otherAddress) { return Update(reinterpret_cast<byte*>(otherAddress)); }
 
 	private: // Internal Methods
 
