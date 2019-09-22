@@ -125,6 +125,9 @@
     <ClInclude Include="Source\CAllocation.h">
       <Filter>Source\Public\Essentials\Allocations</Filter>
     </ClInclude>
+    <ClInclude Include="Source\AllocatorIterator.h">
+      <Filter>Source\Public\Collections\Iterators</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="Other\AlternitySTD.natvis">

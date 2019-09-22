@@ -60,6 +60,32 @@ namespace sal
 		return false;
 	}
 
+	uint32 FAllocatorBlockManager::GetFirstUsedIndex() const
+	{
+		for (uint32 i = 0; i < Length; ++i)
+		{
+			if (Blocks[i] != EMPTY_BLOCK)
+			{
+				return i;
+			}
+		}
+
+		return EMPTY_BLOCK;
+	}
+
+	uint32 FAllocatorBlockManager::GetLastUsedIndex() const
+	{
+		for (uint32 i = Length - 1; i >= 0 ; i--)
+		{
+			if (Blocks[i] != EMPTY_BLOCK)
+			{
+				return i;
+			}
+		}
+
+		return EMPTY_BLOCK;
+	}
+
 	bool FAllocatorBlockManager::AddIndex(const uint32& InIndex, bool CheckExistence /*= true*/)
 	{
 		ENSURE_TRUE(InIndex != EMPTY_BLOCK, false);

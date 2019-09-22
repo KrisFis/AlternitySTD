@@ -10,7 +10,7 @@ namespace sal
 {
 	// Inline allocator allocates first *StartInitSize* of size
 	// * And reallocates its array when extends *StartInitSize*
-	template<typename ElementType, uint32 InitSize>
+	template<typename ElementType, uint32 InitSize = 2>
 	class TAutoAllocator : public TFixedAllocator<ElementType, InitSize>
 	{
 

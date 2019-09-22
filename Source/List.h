@@ -2,7 +2,7 @@
 #pragma once
 
 #include "AllocatorInterface.h"
-#include "Iterator.h"
+#include "AllocatorIterator.h"
 #include "EnsureMacros.h"
 #include "EssentialsMethods.h"
 
@@ -11,22 +11,20 @@ namespace sal
 	// Basic array collection
 	// Uses allocator as allocation standards
 	// Stores data in array and manipulates with them (like manager of array allocator)	
-	template<typename InElementType, typename InAllocator> 
+	template<typename ElementType, typename AllocatorType = TAutoAllocator<ElementType>> 
 	class TList
 	{
 
-	public: // Typedefs
+	private: // Typedefs and aliases
 
-		typedef InElementType ElementType;
+		typedef TAllocatorIterator<ElementType, AllocatorType> ListIterator;
 
 	public: // Constructors
 
 		// Basic clean init constructor
 		TList() 
-			: Allocator(new InAllocator())
+			: Allocator(new AllocatorType())
 			, CurrentSize(0)
-			, BeginIterator(nullptr)
-			, EndIterator(nullptr)
 		{}
 
 	public: // Destructor
@@ -46,14 +44,11 @@ namespace sal
 
 	public: // Iteration getters
 
-		// Iterator for iteration thought list (buffer)
-		typedef	TIterator<ElementType> ListIterator;
-
 		// Gets begin of iteration
-		FORCEINLINE ListIterator begin() { return BeginIterator.Update(reinterpret_cast<byte*>(Allocator->GetFirstElement())); }
+		FORCEINLINE ListIterator begin() { return Iteration::CreateBeginIterator<ElementType>(Allocator); }
 
 		// Gets end of iteration
-		FORCEINLINE ListIterator end() { return EndIterator.Update(reinterpret_cast<byte*>(Allocator->GetLastElement())); }
+		FORCEINLINE ListIterator end() { return Iteration::CreateEndIterator<ElementType>(Allocator); }
 
 	public: // Control method
 
@@ -145,18 +140,12 @@ namespace sal
 	private: // Fields
 
 		// Allocator instance
-		IAllocator<ElementType>* Allocator;
+		AllocatorType* Allocator;
 
 	private: // Primitive fields
 
 		// Remembers current size of list
 		// Its mainly used for allocator
 		uint32 CurrentSize;
-
-		// Iterators
-		// Remember (cache) iterators
-		// Its better than many constructions
-		ListIterator BeginIterator;
-		ListIterator EndIterator;
 	};
 }

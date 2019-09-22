@@ -26,6 +26,16 @@ namespace sal
 		// @return - whether searching operation was successful
 		bool FindEmptyIndex(uint32& OutFreeIndex) const;
 
+		// Gets first used index (from the start)
+		// * finds first used index from the start
+		// * in case no index is used returns EMPTY_BLOCK
+		uint32 GetFirstUsedIndex() const;
+
+		// Gets last used index (from the end)
+		// * finds first used index from the end
+		// * in case no index is used returns EMPTY_BLOCK
+		uint32 GetLastUsedIndex() const;
+
 		// Adds index to free block
 		// @param - index to add
 		// @param - checks whether index already exists [Default: true]

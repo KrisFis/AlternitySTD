@@ -9,11 +9,12 @@
 #include "AllocatorBlockManager.h"
 
 #include "EssentialsMethods.h"
+#include "FixedAllocatorIterator.h"
 
 namespace sal
 {
 	// Fixed allocator allocates just fixed number of elements and do not let you allocates more than set number
-	template<typename ElementType, uint32 InitSize>
+	template<typename ElementType, uint32 InitSize = 2>
 	class TFixedAllocator : public IAllocator<ElementType>
 	{
 
@@ -41,7 +42,7 @@ namespace sal
 
 		TFixedAllocator(const TFixedAllocator& other) = delete;
 
-	public: // IAllocator overrides
+	public: // IAllocator overrides (Control methods)
 
 		virtual ElementType* Allocate() override
 		{
@@ -128,12 +129,38 @@ namespace sal
 
 		virtual ElementType* GetFirstElement() const override
 		{
-			return GetElementPtr(0);
+			uint32 firstIndex = BlockManager.GetFirstUsedIndex();
+			if (firstIndex != BlockManager.EMPTY_BLOCK)
+			{
+				return GetElementPtr(firstIndex);
+			}
+			else
+			{
+				return nullptr;
+			}
+		}
+
+		virtual uint32 GetFirstElementIndex() const override
+		{
+			return BlockManager.GetFirstUsedIndex();
 		}
 
 		virtual ElementType* GetLastElement() const override
 		{
-			return GetElementPtr(BlockManager.Length);
+			uint32 lastIndex = BlockManager.GetLastUsedIndex();
+			if (lastIndex != BlockManager.EMPTY_BLOCK)
+			{
+				return GetElementPtr(lastIndex);
+			}
+			else
+			{
+				return nullptr;
+			}
+		}
+
+		virtual uint32 GetLastElementIndex() const override
+		{
+			return BlockManager.GetLastUsedIndex();
 		}
 
 	protected: // Helper methods

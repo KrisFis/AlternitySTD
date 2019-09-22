@@ -9,7 +9,7 @@ using namespace sal;
 
 void Test_List()
 {
-	TList<FString, TAutoAllocator<FString, 1>> CLikeList;
+	TList<FString> CLikeList;
 
 	FString one("Hello");
 	CLikeList.Add(one);
@@ -28,6 +28,7 @@ int main(void)
 	{
 		// DEBUG!
 		Test_List();
+		LogWait();
 	}
 
 	return 0;

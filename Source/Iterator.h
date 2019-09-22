@@ -6,33 +6,34 @@ namespace sal
 	// Basic "non-const" iterator class
 	// Iterates thought allocator or any type of buffer
 	template<typename ElementType>
-	class TIterator
+	struct TIterator
 	{
 
-	public: // Constructors and destructor
+	public: // Constructors
 		
 		// Constructor
 		TIterator() = delete;
+		TIterator(byte* InAdress) 
+			: CurrentAddress(InAdress)
+		{ }
 
-		TIterator(const TIterator<ElementType>& other)	{ CurrentAddress = other.CurrentAddress; }
-		
+	public: // Destructor
+
 		// Destructor
 		virtual ~TIterator() { CurrentAddress = nullptr; }
-
-		FORCEINLINE TIterator(byte* InAdress) : CurrentAddress(InAdress) { }
 
 	public: // operators
 
 		TIterator& operator++()
 		{
-			Internal_Increment(1);
+			FindNext();
 			return *(this);
 		}
 
 		TIterator operator++(int)
 		{
 			byte* oldAdress = CurrentAddress;
-			Internal_Increment(1);
+			FindNext();
 			return TIterator(oldAdress);
 		}
 
@@ -66,24 +67,14 @@ namespace sal
 			return reinterpret_cast<ElementType*>(CurrentAddress);
 		}
 
-	public: // Methods
+	protected: // Virtual methods
 
-		// Updates current iterator address
-		// and returns itself
-		TIterator<ElementType>& Update(byte* otherAddress)
+		virtual void FindNext()
 		{
-			ENSURE_VALID(otherAddress, *this);
-
-			if (CurrentAddress != otherAddress) CurrentAddress = otherAddress;
-
-			return *this;
+			CurrentAddress += sizeof(ElementType);
 		}
 
-	private: // Internal Methods
-
-		FORCEINLINE void Internal_Increment(const int8& PerTimes) { CurrentAddress += (sizeof(ElementType) * PerTimes); }
-
-	private: // Fields
+	protected: // Fields
 
 		byte* CurrentAddress;
 	};

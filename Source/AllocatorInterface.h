@@ -14,6 +14,7 @@ namespace sal
 	{
 
 	public: // Virtual destructor
+
 		virtual ~IAllocator() {}
 
 	public: // Control methods
@@ -46,10 +47,16 @@ namespace sal
 		// Gets allocated object by its index
 		virtual ElementType* GetElement(const uint32& InIndex) const = 0;
 
-		// Gets first element in allocator
+		// Gets first element
 		virtual ElementType* GetFirstElement() const = 0;
 
-		// Gets last element in allocator
+		// Gets first element's index
+		virtual uint32 GetFirstElementIndex() const = 0;
+
+		// Gets last element
 		virtual ElementType* GetLastElement() const = 0;
+
+		// Gets last element's index
+		virtual uint32 GetLastElementIndex() const = 0;
 	};
 }

@@ -296,6 +296,7 @@
   <ItemGroup>
     <ClInclude Include="Source\AllocatorBlockManager.h" />
     <ClInclude Include="Source\AllocatorInterface.h" />
+    <ClInclude Include="Source\AllocatorIterator.h" />
     <ClInclude Include="Source\CAllocation.h" />
     <ClInclude Include="Source\EssentialsMethods.h" />
     <ClInclude Include="Source\FixedAllocator.h" />
