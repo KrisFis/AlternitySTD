@@ -1,4 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?> 
-<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010"> 
-  
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+  <Type Name="sal::TList&lt;*&gt;">
+    <DisplayString Condition="CurrentSize == 0">{{ size='Empty' }}</DisplayString>
+    <DisplayString>{{ Size={CurrentSize} }}</DisplayString>
+    <Expand>
+      <Item Name="Data">Allocator</Item>
+    </Expand>
+  </Type>
+  <Type Name="sal::FString">
+    <DisplayString Condition="TextData == 0">{{ Size={Length} }}</DisplayString>
+    <DisplayString>{{ Text={ TextData,s } }}</DisplayString>
+    <Expand>
+      <ArrayItems>
+        <Size>Length</Size>
+        <ValuePointer>TextData</ValuePointer>
+      </ArrayItems>
+    </Expand>
+  </Type>
+  <Type Name="sal::TFixedAllocator&lt;*&gt;">
+    <DisplayString Condition="BlockManager.Length == 0">{{ Reserved='Empty' }}</DisplayString>
+    <DisplayString>{{ Reserved={BlockManager.Length} }}</DisplayString>
+    <Expand>
+      <Item Name="[Reserved]">BlockManager.Length</Item>
+      <ArrayItems>
+        <Size>BlockManager.Length</Size>
+        <ValuePointer>FixedMemory</ValuePointer>
+      </ArrayItems>
+    </Expand>
+  </Type>
 </AutoVisualizer>

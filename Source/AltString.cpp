@@ -8,15 +8,15 @@ namespace sal
 	const FString FString::Empty = FString();
 
 	FString::FString() : 
-		TextData(nullptr), Lenght(INDEX_NONE)
+		TextData(nullptr), Length(INDEX_NONE)
 	{
-		Lenght = 1;
-		TextData = new char[Lenght];
-		TextData[Lenght - 1] = INDEX_EOF;
+		Length = 1;
+		TextData = new char[Length];
+		TextData[Length - 1] = INDEX_EOF;
 	}
 
 	FString::FString(const char* InText) : 
-		TextData(nullptr), Lenght(INDEX_NONE)
+		TextData(nullptr), Length(INDEX_NONE)
 	{
 		// Get length for allocation
 		uint16 _lenght = INDEX_NONE;
@@ -27,7 +27,7 @@ namespace sal
 
 		} while (InText[_lenght] != INDEX_EOF);
 
-		Lenght = _lenght;
+		Length = _lenght;
 
 		if (_lenght <= 0) return;
 
@@ -42,30 +42,30 @@ namespace sal
 	}
 
 	FString::FString(FString&& other) :
-		Lenght(other.Lenght)
+		Length(other.Length)
 	{
 		TextData = other.TextData;
 
 		other.TextData = nullptr;
-		other.Lenght = INDEX_EMPTY;
+		other.Length = INDEX_EMPTY;
 	}
 
 	FString::FString(const FString& other) :
 		TextData(nullptr),
-		Lenght(other.Lenght)
+		Length(other.Length)
 	{
-		TextData = new char[Lenght + 1];
-		TextData[Lenght] = INDEX_EOF;
+		TextData = new char[Length + 1];
+		TextData[Length] = INDEX_EOF;
 
 		// Assign new text
-		for (int i = 0; i < other.Lenght; i++)
+		for (int i = 0; i < other.Length; i++)
 		{
 			TextData[i] = other.TextData[i];
 		}
 	}
 
 	FString::FString(EForceInit Init) :
-		TextData(nullptr), Lenght(INDEX_NONE)
+		TextData(nullptr), Length(INDEX_NONE)
 	{	}
 
 	FString::~FString()
@@ -95,13 +95,13 @@ namespace sal
 		}
 
 		delete[] TextData;
-		Lenght = other.Lenght;
+		Length = other.Length;
 
-		TextData = new char[Lenght + 1];
-		TextData[Lenght] = INDEX_EOF;
+		TextData = new char[Length + 1];
+		TextData[Length] = INDEX_EOF;
 
 		// Assign new text
-		for (int i = 0; i < other.Lenght; i++)
+		for (int i = 0; i < other.Length; i++)
 		{
 			TextData[i] = other.TextData[i];
 		}
@@ -116,17 +116,17 @@ namespace sal
 		}
 
 		TextData = other.TextData;
-		Lenght = other.Lenght;
+		Length = other.Length;
 
 		other.TextData = nullptr;
-		other.Lenght = INDEX_EMPTY;
+		other.Length = INDEX_EMPTY;
 
 		return *this;
 	}
 
 	FString FString::operator+(const FString& other)
 	{
-		uint16 resultLenght = Lenght + other.Lenght;
+		uint16 resultLenght = Length + other.Length;
 
 		FString result = FString();
 	
@@ -134,16 +134,16 @@ namespace sal
 		textRef = new char[resultLenght+1];
 		textRef[resultLenght] = INDEX_EOF;
 
-		result.Lenght = resultLenght;
+		result.Length = resultLenght;
 
-		for (int i = 0; i < Lenght; i++)
+		for (int i = 0; i < Length; i++)
 		{
 			textRef[i] = TextData[i];
 		}
 
-		for (int i = 0; i < other.Lenght; i++)
+		for (int i = 0; i < other.Length; i++)
 		{
-			textRef[i + Lenght] = other.TextData[i];
+			textRef[i + Length] = other.TextData[i];
 		}
 
 		return result;
@@ -151,25 +151,25 @@ namespace sal
 
 	FString& FString::operator+=(const FString& other)
 	{
-		uint16 resultLenght = Lenght + other.Lenght;
+		uint16 resultLenght = Length + other.Length;
 
 		char* newArray = new char[resultLenght+1];
 		newArray[resultLenght] = INDEX_EOF;
 
-		for (int i = 0; i < Lenght; i++)
+		for (int i = 0; i < Length; i++)
 		{
 			newArray[i] = TextData[i];
 		}
 
 		delete[] TextData;
 
-		for (int i = 0; i < other.Lenght; i++)
+		for (int i = 0; i < other.Length; i++)
 		{
-			newArray[i + Lenght] = other.TextData[i];
+			newArray[i + Length] = other.TextData[i];
 		}
 
 		TextData = newArray;
-		Lenght = resultLenght;
+		Length = resultLenght;
 
 		return (*this);
 	}
@@ -181,9 +181,9 @@ namespace sal
 
 	bool FString::operator==(const FString& other) const
 	{
-		if (Lenght != other.Lenght) return false;
+		if (Length != other.Length) return false;
 
-		for (int i = 0; i < Lenght; i++)
+		for (int i = 0; i < Length; i++)
 		{
 			if (TextData[i] != other.TextData[i]) return false;
 		}
@@ -200,18 +200,18 @@ namespace sal
 			TextData = nullptr;
 		}
 
-		Lenght = 0;
+		Length = 0;
 
 		do 
 		{
 
-			Lenght++;
+			Length++;
 
-		} while (InText[Lenght] != INDEX_EOF);
+		} while (InText[Length] != INDEX_EOF);
 
-		TextData = new char[Lenght];
+		TextData = new char[Length];
 
-		for (uint32 i = 0; i < Lenght; i++)
+		for (uint32 i = 0; i < Length; i++)
 		{
 			TextData[i] = InText[i];
 		}

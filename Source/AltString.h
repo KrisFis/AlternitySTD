@@ -39,9 +39,9 @@ namespace sal
 		bool operator!=(const FString& other) const;
 
 	public: // Getters
-		FORCEINLINE bool IsEmpty() const { return (Lenght == 0); }
-		FORCEINLINE uint16 GetLenght() const { return Lenght; }
-		FORCEINLINE bool IsValidIndex(const uint32& InIndex) const { return (InIndex < Lenght); }
+		FORCEINLINE bool IsEmpty() const { return (Length == 0); }
+		FORCEINLINE uint16 GetLenght() const { return Length; }
+		FORCEINLINE bool IsValidIndex(const uint32& InIndex) const { return (InIndex < Length); }
 
 	public: // Setters
 		void SetText(const char* InText);
@@ -51,6 +51,6 @@ namespace sal
 
 	private: // Fields
 		char* TextData;
-		uint16 Lenght;
+		uint16 Length;
 	};
 }
