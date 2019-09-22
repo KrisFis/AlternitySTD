@@ -45,10 +45,10 @@ namespace sal
 	public: // Iteration getters
 
 		// Gets begin of iteration
-		FORCEINLINE ListIterator begin() { return Iteration::CreateBeginIterator<ElementType>(Allocator); }
+		FORCEINLINE ListIterator begin() const { return Iteration::CreateBeginIterator<ElementType>(Allocator); }
 
 		// Gets end of iteration
-		FORCEINLINE ListIterator end() { return Iteration::CreateEndIterator<ElementType>(Allocator); }
+		FORCEINLINE ListIterator end() const { return Iteration::CreateEndIterator<ElementType>(Allocator); }
 
 	public: // Control method
 

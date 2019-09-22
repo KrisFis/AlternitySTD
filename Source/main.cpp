@@ -7,6 +7,20 @@
 
 using namespace sal;
 
+void PrintAll(const TList<FString>& ListToPrint)
+{
+	int i = 0;
+	for (FString str : ListToPrint)
+	{
+		LogInt(i, false);
+		LogMsg(": ", false);
+		LogMsg(str);
+		++i;
+	}
+
+	LogMsg("");
+}
+
 void Test_List()
 {
 	TList<FString> CLikeList;
@@ -16,10 +30,7 @@ void Test_List()
 	CLikeList.Add("World");
 	CLikeList.Add("!");
 
-	for (FString str : CLikeList)
-	{
-		LogMsg(str);
-	}
+	PrintAll(CLikeList);
 }
 
 int main(void)
